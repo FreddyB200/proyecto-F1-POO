@@ -14,6 +14,7 @@ public class Carrera {
         this.resultados = new ArrayList<>();
     }
 
+
     public Carrera(Circuito circuito, LocalDateTime fecha, boolean esSprint) {
         this.circuito = circuito;
         this.fecha = fecha;
@@ -105,3 +106,4 @@ public class Carrera {
         this.resultados = resultados;
     }
 } 
+
