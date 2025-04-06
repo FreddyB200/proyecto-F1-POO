@@ -1,12 +1,19 @@
 package org.f1.ui;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import org.f1.api.APIClient;
 import org.f1.data.DataManager;
 import org.f1.model.Piloto;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 
 public class MainUI {
     private final APIClient apiClient;
@@ -59,7 +66,20 @@ public class MainUI {
             String datosJSON = apiClient.fetchDrivers2024();
             System.out.println("Datos obtenidos de la API:");
             System.out.println(datosJSON);
-            // TODO: Implementar el parsing del JSON a objetos Piloto
+
+            // Parsear el JSON a objetos Piloto
+            JsonObject jsonObject = JsonParser.parseString(datosJSON).getAsJsonObject();
+            JsonObject driverTable = jsonObject.getAsJsonObject("MRData").getAsJsonObject("DriverTable");
+            String driversJson = driverTable.get("Drivers").toString();
+
+            Gson gson = new Gson();
+            Type pilotoListType = new TypeToken<ArrayList<Piloto>>(){}.getType();
+            List<Piloto> pilotos = gson.fromJson(driversJson, pilotoListType);
+
+            // Guardar los pilotos en el archivo JSON
+            dataManager.guardarPilotos(pilotos);
+            System.out.println("Pilotos guardados exitosamente.");
+
         } catch (IOException | InterruptedException e) {
             System.err.println("Error al cargar datos de la API: " + e.getMessage());
             System.out.println("Intentando cargar datos locales...");
