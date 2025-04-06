@@ -1,21 +1,74 @@
 package org.f1.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Equipo {
     private String nombre;
-    private String nacionalidad;
+    private String director;
+    private String pais;
+    private int campeonatosGanados;
+    private int puntosConstructores2024;
+    private List<Piloto> pilotos;
     private String motorProveedor;
-    private int puntosConstructores;
 
     public Equipo() {
+        this.pilotos = new ArrayList<>();
+        this.puntosConstructores2024 = 0;
     }
 
-    public Equipo(String nombre, String nacionalidad, String motorProveedor) {
+    public Equipo(String nombre, String director, String pais, String motorProveedor) {
         this.nombre = nombre;
-        this.nacionalidad = nacionalidad;
+        this.director = director;
+        this.pais = pais;
         this.motorProveedor = motorProveedor;
-        this.puntosConstructores = 0;
+        this.campeonatosGanados = 0;
+        this.puntosConstructores2024 = 0;
+        this.pilotos = new ArrayList<>();
     }
 
+    public void agregarPiloto(Piloto piloto) {
+        if (pilotos.size() < 2) {
+            pilotos.add(piloto);
+            piloto.setEquipo(this);
+        } else {
+            throw new IllegalStateException("Un equipo no puede tener más de 2 pilotos titulares");
+        }
+    }
+
+    /**
+     * TODO: Implementar por el equipo
+     * Este método debe calcular los puntos totales del equipo sumando los puntos de sus pilotos
+     * @return total de puntos del equipo
+     */
+    public int calcularPuntos() {
+        // TODO: Implementar por el equipo
+        return 0;
+    }
+
+    /**
+     * TODO: Implementar por el equipo
+     * Este método debe retornar un String con el formato:
+     * "Nombre Equipo - Director - País - Campeonatos: X - Puntos 2024: XX"
+     * @return String con la información formateada del equipo
+     */
+    public String obtenerInformacionCompleta() {
+        // TODO: Implementar por el equipo
+        return "";
+    }
+
+    /**
+     * TODO: Implementar por el equipo
+     * Este método debe retornar la posición promedio del equipo en la temporada actual
+     * basándose en las posiciones de sus pilotos
+     * @return double con la posición promedio
+     */
+    public double obtenerPosicionPromedio() {
+        // TODO: Implementar por el equipo
+        return 0.0;
+    }
+
+    // Getters y setters
     public String getNombre() {
         return nombre;
     }
@@ -24,12 +77,36 @@ public class Equipo {
         this.nombre = nombre;
     }
 
-    public String getNacionalidad() {
-        return nacionalidad;
+    public String getDirector() {
+        return director;
     }
 
-    public void setNacionalidad(String nacionalidad) {
-        this.nacionalidad = nacionalidad;
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+
+    public int getCampeonatosGanados() {
+        return campeonatosGanados;
+    }
+
+    public void setCampeonatosGanados(int campeonatosGanados) {
+        this.campeonatosGanados = campeonatosGanados;
+    }
+
+    public int getPuntosConstructores2024() {
+        return puntosConstructores2024;
+    }
+
+    public List<Piloto> getPilotos() {
+        return pilotos;
     }
 
     public String getMotorProveedor() {
@@ -40,15 +117,7 @@ public class Equipo {
         this.motorProveedor = motorProveedor;
     }
 
-    public int getPuntosConstructores() {
-        return puntosConstructores;
-    }
-
-    public void setPuntosConstructores(int puntosConstructores) {
-        this.puntosConstructores = puntosConstructores;
-    }
-
     public void sumarPuntos(int puntos) {
-        this.puntosConstructores += puntos;
+        this.puntosConstructores2024 += puntos;
     }
 } 

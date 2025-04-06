@@ -2,7 +2,9 @@ package org.f1.model;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Carrera {
     private Circuito circuito;
@@ -71,7 +73,45 @@ public class Carrera {
     public void agregarResultado(Piloto piloto, int posicion, String tiempo, int puntos) {
         ResultadoPiloto resultado = new ResultadoPiloto(piloto, posicion, tiempo, puntos);
         resultados.add(resultado);
-        piloto.sumarPuntos(puntos);
+        piloto.actualizarPuntos(posicion, circuito.getNombre());
+    }
+
+    /**
+     * TODO: Implementar por el equipo
+     * Este método debe generar un reporte de los puntos obtenidos por cada constructor en la carrera
+     * @return Map con el nombre del constructor como clave y los puntos obtenidos como valor
+     */
+    public Map<String, Integer> generarReporteConstructores() {
+        // TODO: Implementar por el equipo
+        return new HashMap<>();
+    }
+
+    /**
+     * TODO: Implementar por el equipo
+     * Este método debe retornar un String con el formato:
+     * "Circuito: Nombre - Fecha: DD/MM/YYYY HH:mm
+     * Tipo: [Sprint/Carrera Principal]
+     * Resultados:
+     * 1. Piloto1 - Equipo1 - Tiempo1 - XXpts
+     * 2. Piloto2 - Equipo2 - Tiempo2 - XXpts
+     * ..."
+     * @return String con la información formateada de la carrera
+     */
+    public String obtenerInformacionCompleta() {
+        // TODO: Implementar por el equipo
+        return "";
+    }
+
+    /**
+     * TODO: Implementar por el equipo
+     * Este método debe calcular la diferencia de tiempo entre el ganador y un piloto específico
+     * @param posicion la posición del piloto del que se quiere calcular la diferencia
+     * @return String con el formato "+XX.XXX" representando la diferencia en segundos
+     * @throws IllegalArgumentException si la posición no existe o es la primera posición
+     */
+    public String calcularDiferenciaConGanador(int posicion) {
+        // TODO: Implementar por el equipo
+        return "";
     }
 
     public Circuito getCircuito() {
