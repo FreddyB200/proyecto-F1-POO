@@ -30,7 +30,7 @@ public class MainUI {
         while (true) {
             System.out.println("\n=== F1 Stats 2024 ===");
             System.out.println("1. Cargar pilotos desde API");
-            System.out.println("2. Ver pilotos guardados");
+            System.out.println("2. Mostrar lista de pilotos guardados");
             System.out.println("3. Ver clasificación de pilotos");
             System.out.println("4. Ver clasificación de constructores");
             System.out.println("5. Salir");

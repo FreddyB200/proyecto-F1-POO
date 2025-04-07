@@ -85,7 +85,7 @@ public class Piloto extends Persona {
     }
 
     /**
-     * Actualiza los puntos del piloto basado en su posición en una carrera.
+     * Update de  los puntos del piloto basado en su posición en una carrera.
      * También actualiza el mapa de posiciones y los puntos del equipo.
      *
      * @param posicion Posición final en la carrera
