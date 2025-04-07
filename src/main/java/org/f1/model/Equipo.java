@@ -36,15 +36,14 @@ public class Equipo {
         }
     }
 
-    /**
-     * TODO: Implementar por el equipo
-     * Este método debe calcular los puntos totales del equipo sumando los puntos de sus pilotos
-     * @return total de puntos del equipo
-     */
     public int calcularPuntos() {
-        // TODO: Implementar por el equipo
-        return 0;
+        int totalPuntos = 0;
+        for (Piloto piloto : pilotos) {
+            totalPuntos += piloto.getPuntos();
+        }
+        return totalPuntos;
     }
+    
 
     /**
      * TODO: Implementar por el equipo
