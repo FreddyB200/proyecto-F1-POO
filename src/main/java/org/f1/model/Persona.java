@@ -6,6 +6,7 @@ public abstract class Persona {
     private String nacionalidad;
     private int edad;
 
+
     public Persona() {
     }
 
