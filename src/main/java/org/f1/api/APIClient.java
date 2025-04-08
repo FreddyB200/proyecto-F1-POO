@@ -16,6 +16,9 @@ import java.net.http.HttpResponse;
 public class APIClient {
     private static final String BASE_URL = "http://ergast.com/api/f1";
     private final HttpClient client;
+    private static final int TIMEOUT_SECONDS = 30;
+    private static final int MAX_RETRIES = 3;
+    private static final long RATE_LIMIT_DELAY = 1000; // 1 second between calls
 
     public APIClient() {
         this.client = HttpClient.newHttpClient();

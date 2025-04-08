@@ -86,6 +86,6 @@ $RECYCLE.BIN/
 *.lnk
 
 # Project specific
-data/
-*.json
-!data/example-data.json 
+# data/
+# *.json
+# !data/example-data.json 
