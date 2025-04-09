@@ -60,10 +60,17 @@ docs/              → Documentación
    ```
 
 ## 🔍 Menú Principal
-1. Mostrar ranking de pilotos
-2. Ver resultados por carrera
-3. Consultar equipo
-4. Salir
+1. Mostrar lista de pilotos
+2. Ver clasificación de pilotos
+3. Ver clasificación de constructores
+4. Ver calendario de carreras
+5. Ver estadísticas detalladas de piloto
+6. Ver resultados por carrera
+7. Ver próxima carrera
+8. Ver información de equipo
+9. Salir
+
+Cada opción proporciona información detallada y actualizada de la temporada 2024.
 
 ## 🌐 Proceso de Desarrollo
 El proyecto se desarrolló en tres fases principales:
