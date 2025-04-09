@@ -1,6 +1,7 @@
 package org.f1.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -81,37 +82,80 @@ public class Carrera implements Reportable, Informable {
 
     @Override
     public Map<String, Integer> generarReporteConstructores() {
-        /* TAREA: Reporte de puntos por constructor
-         * @Responsable: Sebastian
-         * @Descripción: Generar un Map donde la clave es el nombre del constructor
-         * y el valor son los puntos obtenidos en la carrera por sus pilotos
-         */
-        return new HashMap<>();
+        Map<String, Integer> puntosConstructores = new HashMap<>();
+        
+        for (ResultadoPiloto resultado : resultados) {
+            String nombreEquipo = resultado.getPiloto().getEquipo().getNombre();
+            int puntos = resultado.getPuntos();
+            
+            puntosConstructores.merge(nombreEquipo, puntos, Integer::sum);
+        }
+        
+        return puntosConstructores;
     }
 
     @Override
     public String calcularDiferenciaConGanador(int posicion) {
-        /* TAREA: Cálculo de diferencias de tiempo
-         * @Responsable: Sebastian
-         * @Descripción: Calcular la diferencia de tiempo entre el ganador
-         * y el piloto en la posición especificada. Formato: "+XX.XXX"
-         * Lanzar IllegalArgumentException si la posición no existe o es la primera
-         */
-        return "";
+        if (posicion <= 1 || posicion > resultados.size()) {
+            throw new IllegalArgumentException("Posición inválida para calcular diferencia");
+        }
+
+        ResultadoPiloto ganador = resultados.get(0);
+        ResultadoPiloto piloto = resultados.get(posicion - 1);
+
+        if (ganador.getTiempo().equals("DNF") || piloto.getTiempo().equals("DNF")) {
+            return "DNF";
+        }
+
+        // Convertir tiempos de formato "1:30.500" a milisegundos
+        long tiempoGanador = convertirTiempoAMilisegundos(ganador.getTiempo());
+        long tiempoPiloto = convertirTiempoAMilisegundos(piloto.getTiempo());
+
+        // Calcular diferencia y formatear
+        long diferencia = tiempoPiloto - tiempoGanador;
+        return String.format("+%.3f", diferencia / 1000.0);
+    }
+
+    private long convertirTiempoAMilisegundos(String tiempo) {
+        String[] partes = tiempo.split("[:.]");
+        long minutos = 0;
+        long segundos = 0;
+        long milisegundos = 0;
+
+        if (partes.length == 3) {
+            // Formato "m:ss.SSS"
+            minutos = Long.parseLong(partes[0]);
+            segundos = Long.parseLong(partes[1]);
+            milisegundos = Long.parseLong(partes[2]);
+        } else if (partes.length == 2) {
+            // Formato "ss.SSS"
+            segundos = Long.parseLong(partes[0]);
+            milisegundos = Long.parseLong(partes[1]);
+        }
+
+        return (minutos * 60 * 1000) + (segundos * 1000) + milisegundos;
     }
 
     @Override
     public String obtenerInformacionCompleta() {
-        /* TAREA: Formato de información de carrera
-         * @Responsable: Sebastian
-         * @Descripción: Generar string con formato:
-         * "Circuito: Nombre - Fecha: DD/MM/YYYY HH:mm
-         * Tipo: [Sprint/Carrera Principal]
-         * Resultados:
-         * 1. Piloto1 - Equipo1 - Tiempo1 - XXpts
-         * 2. Piloto2 - Equipo2 - Tiempo2 - XXpts"
-         */
-        return "";
+        StringBuilder info = new StringBuilder();
+        info.append(String.format("Circuito: %s - Fecha: %s\n", 
+            circuito.getNombre(), 
+            fecha.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));
+        info.append(String.format("Tipo: %s\n", esSprint ? "Sprint" : "Carrera Principal"));
+        info.append("Resultados:\n");
+        
+        for (int i = 0; i < resultados.size(); i++) {
+            ResultadoPiloto resultado = resultados.get(i);
+            info.append(String.format("%d. %s - %s - %s - %d pts\n",
+                i + 1,
+                resultado.getPiloto().obtenerInformacionBasica(),
+                resultado.getPiloto().getEquipo().getNombre(),
+                resultado.getTiempo(),
+                resultado.getPuntos()));
+        }
+        
+        return info.toString();
     }
 
     @Override
@@ -155,11 +199,10 @@ public class Carrera implements Reportable, Informable {
         
         for (int i = 0; i < resultados.size(); i++) {
             ResultadoPiloto resultado = resultados.get(i);
-            Piloto piloto = resultado.getPiloto();
             info.append(String.format("%d. %s - %s - %d pts%n",
                 i + 1,
-                piloto.getNombre(),
-                piloto.getEquipo().getNombre(),
+                resultado.getPiloto().obtenerInformacionBasica(),
+                resultado.getPiloto().getEquipo().getNombre(),
                 resultado.getPuntos()));
         }
         

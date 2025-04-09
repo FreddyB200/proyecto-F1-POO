@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.f1.model.interfaces.Informable;
 import org.f1.model.interfaces.Posicionable;
 import org.f1.model.interfaces.Puntuable;
 
@@ -15,11 +16,11 @@ import org.f1.model.interfaces.Puntuable;
  * @author Equipo de Desarrollo F1
  * @version 1.0
  */
-public class Piloto extends Persona implements Posicionable, Puntuable {
+public class Piloto extends Persona implements Posicionable, Puntuable, Informable {
     private Equipo equipo;
-    private int puntos2024;
     private int numero;
-    private String abreviatura;
+    private String codigo;
+    private int puntos2024;
     private int campeonatosGanados;
     private int carrerasDisputadas;
     private Map<String, Integer> posicionesPorCarrera;
@@ -31,6 +32,8 @@ public class Piloto extends Persona implements Posicionable, Puntuable {
     public Piloto() {
         super();
         this.posicionesPorCarrera = new HashMap<>();
+        this.puntos2024 = 0;
+        this.campeonatosGanados = 0;
     }
 
     /**
@@ -42,14 +45,14 @@ public class Piloto extends Persona implements Posicionable, Puntuable {
      * @param edad Edad del piloto
      * @param equipo Equipo al que pertenece
      * @param numero Número del coche
-     * @param abreviatura Abreviatura de tres letras del piloto
+     * @param codigo Código del piloto
      */
-    public Piloto(String nombre, String apellido, String nacionalidad, int edad, 
-                 Equipo equipo, int numero, String abreviatura) {
+    public Piloto(String nombre, String apellido, String nacionalidad, int edad,
+                 Equipo equipo, int numero, String codigo) {
         super(nombre, apellido, nacionalidad, edad);
         this.equipo = equipo;
         this.numero = numero;
-        this.abreviatura = abreviatura;
+        this.codigo = codigo;
         this.puntos2024 = 0;
         this.campeonatosGanados = 0;
         this.carrerasDisputadas = 0;
@@ -72,9 +75,6 @@ public class Piloto extends Persona implements Posicionable, Puntuable {
     @Override
     public void sumarPuntos(int puntos) {
         this.puntos2024 += puntos;
-        if (this.equipo != null) {
-            this.equipo.sumarPuntos(puntos);
-        }
     }
 
     public int getNumero() {
@@ -85,12 +85,12 @@ public class Piloto extends Persona implements Posicionable, Puntuable {
         this.numero = numero;
     }
 
-    public String getAbreviatura() {
-        return abreviatura;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setAbreviatura(String abreviatura) {
-        this.abreviatura = abreviatura;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     /**
@@ -100,45 +100,62 @@ public class Piloto extends Persona implements Posicionable, Puntuable {
      * @param posicion Posición final en la carrera
      * @param nombreCarrera Nombre del circuito donde se disputó la carrera
      */
+    @Override
     public void actualizarPuntos(int posicion, String nombreCarrera) {
-        int puntosGanados = calcularPuntosPorPosicion(posicion);
-        this.puntos2024 += puntosGanados;
-        this.posicionesPorCarrera.put(nombreCarrera, posicion);
-        if (this.equipo != null) {
-            this.equipo.sumarPuntos(puntosGanados);
-        }
-        this.carrerasDisputadas++;
+        posicionesPorCarrera.put(nombreCarrera, posicion);
+        int puntos = calcularPuntosPorPosicion(posicion);
+        sumarPuntos(puntos);
     }
 
     @Override
     public int calcularPuntosPorPosicion(int posicion) {
-        /* TAREA: Sistema de puntuación F1 2024
-         * @Responsable: Javier
-         * @Descripción: Implementar el sistema de puntos de F1 2024
-         * 1° = 25pts, 2° = 18pts, 3° = 15pts, 4° = 12pts, 5° = 10pts
-         * 6° = 8pts, 7° = 6pts, 8° = 4pts, 9° = 2pts, 10° = 1pt
-         */
-        return 0;
+        return switch (posicion) {
+            case 1 -> 25;
+            case 2 -> 18;
+            case 3 -> 15;
+            case 4 -> 12;
+            case 5 -> 10;
+            case 6 -> 8;
+            case 7 -> 6;
+            case 8 -> 4;
+            case 9 -> 2;
+            case 10 -> 1;
+            default -> 0;
+        };
+    }
+
+    @Override
+    public String obtenerInformacionBasica() {
+        return String.format("%s %s - %s", nombre, apellido, equipo.getNombre());
+    }
+
+    @Override
+    public String obtenerInformacionDetallada() {
+        return String.format("%s\nEdad: %d\nNacionalidad: %s\nNúmero: %d\nCódigo: %s\nPuntos 2024: %d\nCampeonatos: %d",
+            obtenerInformacionBasica(),
+            edad,
+            nacionalidad,
+            numero,
+            codigo,
+            puntos2024,
+            campeonatosGanados);
     }
 
     @Override
     public String obtenerInformacionCompleta() {
-        /* TAREA: Formato de información de piloto
-         * @Responsable: Sebastian
-         * @Descripción: Generar string con formato:
-         * "Nombre Apellido - Equipo - Puntos 2024: XX - Campeonatos: X"
-         */
-        return "";
+        return String.format("%s - Puntos 2024: %d - Campeonatos: %d",
+            obtenerInformacionBasica(), puntos2024, campeonatosGanados);
     }
 
     @Override
     public double obtenerPosicionPromedio() {
-        /* TAREA: Cálculo de posición promedio de piloto
-         * @Responsable: Sebastian
-         * @Descripción: Calcular el promedio de posiciones del piloto
-         * usando el Map posicionesPorCarrera
-         */
-        return 0.0;
+        if (posicionesPorCarrera.isEmpty()) {
+            return 0.0;
+        }
+        double suma = posicionesPorCarrera.values().stream()
+                .mapToInt(Integer::intValue)
+                .sum();
+        return suma / posicionesPorCarrera.size();
     }
 
     // Getters y Setters adicionales
@@ -155,7 +172,7 @@ public class Piloto extends Persona implements Posicionable, Puntuable {
     }
 
     public Map<String, Integer> getPosicionesPorCarrera() {
-        return posicionesPorCarrera;
+        return new HashMap<>(posicionesPorCarrera);
     }
 
     @Override

@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.f1.model.interfaces.Informable;
 import org.f1.model.interfaces.Posicionable;
 import org.f1.model.interfaces.Puntuable;
 
-public class Equipo implements Posicionable, Puntuable {
+public class Equipo implements Posicionable, Puntuable, Informable {
     private String nombre;
     private String director;
     private String pais;
@@ -54,14 +55,41 @@ public class Equipo implements Posicionable, Puntuable {
 
     @Override
     public double obtenerPosicionPromedio() {
-        // TODO: Implementar por Sebastian
-        return 0.0;
+        if (posicionesPorCarrera.isEmpty()) {
+            return 0.0;
+        }
+        double suma = posicionesPorCarrera.stream()
+                .mapToInt(Integer::intValue)
+                .sum();
+        return suma / posicionesPorCarrera.size();
+    }
+
+    @Override
+    public String obtenerInformacionBasica() {
+        return String.format("%s - %s", nombre, pais);
+    }
+
+    @Override
+    public String obtenerInformacionDetallada() {
+        StringBuilder info = new StringBuilder();
+        info.append(String.format("%s\nDirector: %s\nMotor: %s\nPilotos:\n", 
+            obtenerInformacionBasica(), director, motorProveedor));
+        
+        for (Piloto piloto : pilotos) {
+            info.append(String.format("- %s %s (#%d)\n", 
+                piloto.getNombre(), piloto.getApellido(), piloto.getNumero()));
+        }
+        
+        info.append(String.format("\nPuntos 2024: %d\nCampeonatos: %d", 
+            puntosConstructores2024, campeonatosGanados));
+        
+        return info.toString();
     }
 
     @Override
     public String obtenerInformacionCompleta() {
-        // TODO: Implementar por Sebastian
-        return "";
+        return String.format("%s - Director: %s - Puntos 2024: %d - Campeonatos: %d",
+            obtenerInformacionBasica(), director, puntosConstructores2024, campeonatosGanados);
     }
 
     @Override
@@ -76,8 +104,19 @@ public class Equipo implements Posicionable, Puntuable {
 
     @Override
     public int calcularPuntosPorPosicion(int posicion) {
-        // TODO: Implementar por Javier
-        return 0;
+        return switch (posicion) {
+            case 1 -> 25;
+            case 2 -> 18;
+            case 3 -> 15;
+            case 4 -> 12;
+            case 5 -> 10;
+            case 6 -> 8;
+            case 7 -> 6;
+            case 8 -> 4;
+            case 9 -> 2;
+            case 10 -> 1;
+            default -> 0;
+        };
     }
 
     @Override
@@ -99,6 +138,13 @@ public class Equipo implements Posicionable, Puntuable {
     @Override
     public int obtenerPuntosTotales() {
         return puntosConstructores2024;
+    }
+
+    @Override
+    public void actualizarPuntos(int posicion, String nombreCarrera) {
+        posicionesPorCarrera.add(posicion);
+        int puntos = calcularPuntosPorPosicion(posicion);
+        sumarPuntos(puntos);
     }
 
     // Getters y setters
@@ -139,7 +185,7 @@ public class Equipo implements Posicionable, Puntuable {
     }
 
     public List<Piloto> getPilotos() {
-        return pilotos;
+        return new ArrayList<>(pilotos);
     }
 
     public String getMotorProveedor() {
@@ -151,10 +197,10 @@ public class Equipo implements Posicionable, Puntuable {
     }
 
     public List<Integer> getPosicionesPorCarrera() {
-        return posicionesPorCarrera;
+        return new ArrayList<>(posicionesPorCarrera);
     }
 
     public void setPosicionesPorCarrera(List<Integer> posicionesPorCarrera) {
-        this.posicionesPorCarrera = posicionesPorCarrera;
+        this.posicionesPorCarrera = new ArrayList<>(posicionesPorCarrera);
     }
 } 

@@ -6,6 +6,12 @@ package org.f1.model.interfaces;
  */
 public interface Puntuable {
     /**
+     * Obtiene los puntos actuales
+     * @return puntos actuales
+     */
+    int getPuntos();
+
+    /**
      * Calcula los puntos correspondientes a una posición específica
      * @param posicion la posición obtenida
      * @return puntos correspondientes a esa posición

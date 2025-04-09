@@ -1,6 +1,7 @@
 package org.f1.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.f1.model.interfaces.Informable;
 import org.f1.model.interfaces.Validable;
@@ -76,35 +77,36 @@ public class Circuito implements Validable, Informable {
 
     @Override
     public boolean validarFechas() {
-        /* TAREA: Validación de fechas de carreras
-         * @Responsable: Javier
-         * @Descripción: Validar que:
-         * 1. La fecha del sprint sea anterior a la carrera principal
-         * 2. Ambas fechas estén en el año 2024
-         */
-        return false;
+        if (fechaCarreraPrincipal == null || fechaCarreraSprint == null) {
+            return false;
+        }
+
+        // Validar que ambas fechas sean del año 2024
+        if (fechaCarreraPrincipal.getYear() != 2024 || fechaCarreraSprint.getYear() != 2024) {
+            return false;
+        }
+
+        // Validar que la carrera sprint sea antes que la carrera principal
+        return fechaCarreraSprint.isBefore(fechaCarreraPrincipal);
     }
 
     @Override
     public double calcularDistanciaTotal() {
-        /* TAREA: Cálculo de distancia total de carrera
-         * @Responsable: Javier
-         * @Descripción: Calcular la distancia total multiplicando
-         * la longitud del circuito por el número de vueltas
-         */
-        return 0.0;
+        return longitud * numVueltas;
     }
 
     @Override
     public String obtenerInformacionCompleta() {
-        /* TAREA: Formato de información de circuito
-         * @Responsable: Sebastian
-         * @Descripción: Generar string con formato:
-         * "Nombre Circuito - País - Longitud: XX.XXX km - Vueltas: XX
-         * Carrera Principal: DD/MM/YYYY HH:mm
-         * Carrera Sprint: DD/MM/YYYY HH:mm"
-         */
-        return "";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return String.format("%s - %s - Longitud: %.3f km - Vueltas: %d\n" +
+                           "Carrera Principal: %s\n" +
+                           "Carrera Sprint: %s",
+            nombre,
+            pais,
+            longitud,
+            numVueltas,
+            fechaCarreraPrincipal.format(formatter),
+            fechaCarreraSprint.format(formatter));
     }
 
     @Override
