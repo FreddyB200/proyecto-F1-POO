@@ -6,14 +6,20 @@ package org.f1.model.interfaces;
  */
 public interface Validable {
     /**
-     * Valida las fechas del elemento
+     * Valida las fechas de las carreras
      * @return true si las fechas son válidas, false en caso contrario
      */
     boolean validarFechas();
     
     /**
-     * Calcula la distancia total del elemento
+     * Calcula la distancia total de la carrera
      * @return double con la distancia total en kilómetros
      */
     double calcularDistanciaTotal();
+
+    /**
+     * Valida si el circuito cumple con los requisitos mínimos
+     * @return true si cumple los requisitos, false en caso contrario
+     */
+    boolean validarRequisitosMinimos();
 } 

@@ -1,5 +1,6 @@
 package org.f1.model;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -155,5 +156,26 @@ public class Piloto extends Persona implements Posicionable, Puntuable {
 
     public Map<String, Integer> getPosicionesPorCarrera() {
         return posicionesPorCarrera;
+    }
+
+    @Override
+    public int obtenerMejorPosicion() {
+        if (posicionesPorCarrera.isEmpty()) {
+            return 0;
+        }
+        return Collections.min(posicionesPorCarrera.values());
+    }
+
+    @Override
+    public int obtenerPeorPosicion() {
+        if (posicionesPorCarrera.isEmpty()) {
+            return 0;
+        }
+        return Collections.max(posicionesPorCarrera.values());
+    }
+
+    @Override
+    public int obtenerPuntosTotales() {
+        return puntos2024;
     }
 } 

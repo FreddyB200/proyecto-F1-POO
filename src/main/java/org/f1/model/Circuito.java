@@ -106,4 +106,38 @@ public class Circuito implements Validable, Informable {
          */
         return "";
     }
+
+    @Override
+    public boolean validarRequisitosMinimos() {
+        // Validar longitud mínima (3.5 km)
+        if (longitud < 3.5) {
+            return false;
+        }
+        
+        // Validar número de vueltas (mínimo 50)
+        if (numVueltas < 50) {
+            return false;
+        }
+        
+        // Validar que tenga fechas asignadas
+        if (fechaCarreraPrincipal == null || fechaCarreraSprint == null) {
+            return false;
+        }
+        
+        return true;
+    }
+
+    @Override
+    public String obtenerInformacionBasica() {
+        return String.format("%s - %s - %.3f km", nombre, pais, longitud);
+    }
+
+    @Override
+    public String obtenerInformacionDetallada() {
+        return String.format("%s\nVueltas: %d\nCarrera Principal: %s\nCarrera Sprint: %s",
+            obtenerInformacionBasica(),
+            numVueltas,
+            fechaCarreraPrincipal.toString(),
+            fechaCarreraSprint.toString());
+    }
 } 

@@ -1,6 +1,7 @@
 package org.f1.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.f1.model.interfaces.Posicionable;
@@ -14,10 +15,12 @@ public class Equipo implements Posicionable, Puntuable {
     private int puntosConstructores2024;
     private List<Piloto> pilotos;
     private String motorProveedor;
+    private List<Integer> posicionesPorCarrera;
 
     public Equipo() {
         this.pilotos = new ArrayList<>();
         this.puntosConstructores2024 = 0;
+        this.posicionesPorCarrera = new ArrayList<>();
     }
 
     public Equipo(String nombre, String director, String pais, String motorProveedor) {
@@ -28,6 +31,7 @@ public class Equipo implements Posicionable, Puntuable {
         this.campeonatosGanados = 0;
         this.puntosConstructores2024 = 0;
         this.pilotos = new ArrayList<>();
+        this.posicionesPorCarrera = new ArrayList<>();
     }
 
     public void agregarPiloto(Piloto piloto) {
@@ -74,6 +78,27 @@ public class Equipo implements Posicionable, Puntuable {
     public int calcularPuntosPorPosicion(int posicion) {
         // TODO: Implementar por Javier
         return 0;
+    }
+
+    @Override
+    public int obtenerMejorPosicion() {
+        if (posicionesPorCarrera.isEmpty()) {
+            return 0;
+        }
+        return Collections.min(posicionesPorCarrera);
+    }
+
+    @Override
+    public int obtenerPeorPosicion() {
+        if (posicionesPorCarrera.isEmpty()) {
+            return 0;
+        }
+        return Collections.max(posicionesPorCarrera);
+    }
+
+    @Override
+    public int obtenerPuntosTotales() {
+        return puntosConstructores2024;
     }
 
     // Getters y setters
@@ -123,5 +148,13 @@ public class Equipo implements Posicionable, Puntuable {
 
     public void setMotorProveedor(String motorProveedor) {
         this.motorProveedor = motorProveedor;
+    }
+
+    public List<Integer> getPosicionesPorCarrera() {
+        return posicionesPorCarrera;
+    }
+
+    public void setPosicionesPorCarrera(List<Integer> posicionesPorCarrera) {
+        this.posicionesPorCarrera = posicionesPorCarrera;
     }
 } 

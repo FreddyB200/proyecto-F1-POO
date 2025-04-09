@@ -114,6 +114,58 @@ public class Carrera implements Reportable, Informable {
         return "";
     }
 
+    @Override
+    public void generarReporte() {
+        System.out.println("=== Reporte de Carrera ===");
+        System.out.println(obtenerInformacionCompleta());
+        System.out.println("\nPuntos por Constructor:");
+        Map<String, Integer> puntosConstructores = generarReporteConstructores();
+        puntosConstructores.forEach((constructor, puntos) -> 
+            System.out.printf("%s: %d pts%n", constructor, puntos));
+    }
+
+    @Override
+    public void exportarReporte(String formato) {
+        // TODO: Implementar exportación a diferentes formatos (PDF, Excel, etc.)
+        throw new UnsupportedOperationException("Exportación a " + formato + " aún no implementada");
+    }
+
+    @Override
+    public String obtenerReporteResumido() {
+        StringBuilder resumen = new StringBuilder();
+        resumen.append(String.format("Carrera: %s%n", circuito.getNombre()));
+        resumen.append(String.format("Fecha: %s%n", fecha.toString()));
+        resumen.append(String.format("Tipo: %s%n", esSprint ? "Sprint" : "Carrera Principal"));
+        resumen.append(String.format("Ganador: %s%n", resultados.get(0).getPiloto().getNombre()));
+        return resumen.toString();
+    }
+
+    @Override
+    public String obtenerInformacionBasica() {
+        return String.format("%s - %s - %s",
+            circuito.getNombre(),
+            fecha.toString(),
+            esSprint ? "Sprint" : "Carrera Principal");
+    }
+
+    @Override
+    public String obtenerInformacionDetallada() {
+        StringBuilder info = new StringBuilder();
+        info.append(obtenerInformacionBasica()).append("\n\nResultados:\n");
+        
+        for (int i = 0; i < resultados.size(); i++) {
+            ResultadoPiloto resultado = resultados.get(i);
+            Piloto piloto = resultado.getPiloto();
+            info.append(String.format("%d. %s - %s - %d pts%n",
+                i + 1,
+                piloto.getNombre(),
+                piloto.getEquipo().getNombre(),
+                resultado.getPuntos()));
+        }
+        
+        return info.toString();
+    }
+
     public Circuito getCircuito() {
         return circuito;
     }
