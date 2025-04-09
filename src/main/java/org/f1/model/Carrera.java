@@ -81,19 +81,36 @@ public class Carrera implements Reportable, Informable {
 
     @Override
     public Map<String, Integer> generarReporteConstructores() {
-        // TODO: Implementar por Sebastian
+        /* TAREA: Reporte de puntos por constructor
+         * @Responsable: Sebastian
+         * @Descripción: Generar un Map donde la clave es el nombre del constructor
+         * y el valor son los puntos obtenidos en la carrera por sus pilotos
+         */
         return new HashMap<>();
     }
 
     @Override
     public String calcularDiferenciaConGanador(int posicion) {
-        // TODO: Implementar por Sebastian
+        /* TAREA: Cálculo de diferencias de tiempo
+         * @Responsable: Sebastian
+         * @Descripción: Calcular la diferencia de tiempo entre el ganador
+         * y el piloto en la posición especificada. Formato: "+XX.XXX"
+         * Lanzar IllegalArgumentException si la posición no existe o es la primera
+         */
         return "";
     }
 
     @Override
     public String obtenerInformacionCompleta() {
-        // TODO: Implementar por Sebastian
+        /* TAREA: Formato de información de carrera
+         * @Responsable: Sebastian
+         * @Descripción: Generar string con formato:
+         * "Circuito: Nombre - Fecha: DD/MM/YYYY HH:mm
+         * Tipo: [Sprint/Carrera Principal]
+         * Resultados:
+         * 1. Piloto1 - Equipo1 - Tiempo1 - XXpts
+         * 2. Piloto2 - Equipo2 - Tiempo2 - XXpts"
+         */
         return "";
     }
 

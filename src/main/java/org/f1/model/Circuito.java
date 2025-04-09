@@ -76,19 +76,34 @@ public class Circuito implements Validable, Informable {
 
     @Override
     public boolean validarFechas() {
-        // TODO: Implementar por Javier
+        /* TAREA: Validación de fechas de carreras
+         * @Responsable: Javier
+         * @Descripción: Validar que:
+         * 1. La fecha del sprint sea anterior a la carrera principal
+         * 2. Ambas fechas estén en el año 2024
+         */
         return false;
     }
 
     @Override
     public double calcularDistanciaTotal() {
-        // TODO: Implementar por Javier
+        /* TAREA: Cálculo de distancia total de carrera
+         * @Responsable: Javier
+         * @Descripción: Calcular la distancia total multiplicando
+         * la longitud del circuito por el número de vueltas
+         */
         return 0.0;
     }
 
     @Override
     public String obtenerInformacionCompleta() {
-        // TODO: Implementar por Sebastian
+        /* TAREA: Formato de información de circuito
+         * @Responsable: Sebastian
+         * @Descripción: Generar string con formato:
+         * "Nombre Circuito - País - Longitud: XX.XXX km - Vueltas: XX
+         * Carrera Principal: DD/MM/YYYY HH:mm
+         * Carrera Sprint: DD/MM/YYYY HH:mm"
+         */
         return "";
     }
 } 

@@ -111,19 +111,32 @@ public class Piloto extends Persona implements Posicionable, Puntuable {
 
     @Override
     public int calcularPuntosPorPosicion(int posicion) {
-        // TODO: Implementar por Javier
+        /* TAREA: Sistema de puntuación F1 2024
+         * @Responsable: Javier
+         * @Descripción: Implementar el sistema de puntos de F1 2024
+         * 1° = 25pts, 2° = 18pts, 3° = 15pts, 4° = 12pts, 5° = 10pts
+         * 6° = 8pts, 7° = 6pts, 8° = 4pts, 9° = 2pts, 10° = 1pt
+         */
         return 0;
     }
 
     @Override
     public String obtenerInformacionCompleta() {
-        // TODO: Implementar por Sebastian
+        /* TAREA: Formato de información de piloto
+         * @Responsable: Sebastian
+         * @Descripción: Generar string con formato:
+         * "Nombre Apellido - Equipo - Puntos 2024: XX - Campeonatos: X"
+         */
         return "";
     }
 
     @Override
     public double obtenerPosicionPromedio() {
-        // TODO: Implementar por Sebastian
+        /* TAREA: Cálculo de posición promedio de piloto
+         * @Responsable: Sebastian
+         * @Descripción: Calcular el promedio de posiciones del piloto
+         * usando el Map posicionesPorCarrera
+         */
         return 0.0;
     }
 
