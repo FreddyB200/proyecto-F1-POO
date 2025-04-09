@@ -8,7 +8,8 @@
 - **Modelado de entidades**:  
   - Clases: `Equipo`, `Piloto`, `Circuito`, `Carrera` con herencia y encapsulación.  
 - **Datos oficiales 2024**:  
-  - Carga automática desde archivos JSON (sin entrada por consola).  
+  - Datos inicialmente cargados desde APIs oficiales y almacenados en JSON
+  - Sistema de datos precargados para consulta rápida y offline
 - **Consultas dinámicas**:  
   - Tabla de posiciones del Mundial de Pilotos y Constructores
   - Resultados por carrera (posición de salida y llegada)
@@ -33,11 +34,11 @@
 src/
 ├── main/java/
 │   ├── model/     → Clases POJO (Equipo.java, Piloto.java)
-│   ├── api/       → Cliente API (APIClient.java)
-│   ├── data/      → Persistencia (DataManager.java)
+│   ├── api/       → Cliente API histórico (usado inicialmente)
+│   ├── data/      → Persistencia y datos precargados
 │   └── ui/        → Interfaz consola (MainUI.java)
 ├── test/java/     → Tests unitarios
-data/              → Archivos JSON
+data/              → Archivos JSON con datos oficiales
 docs/              → Documentación
 ├── uml/           → Diagramas UML
 └── screenshots/   → Capturas de consultas
@@ -64,24 +65,31 @@ docs/              → Documentación
 3. Consultar equipo
 4. Salir
 
-## 🌐 APIs Utilizadas
-- **Ergast F1 API** (https://ergast.com/mrd/):
-  - Datos históricos F1 desde 1950
-  - Endpoints para pilotos, constructores y resultados
-  - *Nota: API deprecada después de 2024*
+## 🌐 Proceso de Desarrollo
+El proyecto se desarrolló en tres fases principales:
 
-- **OpenF1 API** (https://openf1.org/):
-  - Datos en tiempo real
-  - Telemetría, tiempos por vuelta, radio del equipo
-  - Formato JSON/CSV
+1. **Fase Inicial - Carga de Datos**:
+   - Integración con APIs de F1 (Ergast y OpenF1)
+   - Recopilación y validación de datos oficiales
+   - Almacenamiento en formato JSON
+
+2. **Fase Actual - Sistema Offline**:
+   - Datos precargados para acceso rápido
+   - Sin dependencia de APIs externas
+   - Optimizado para consultas locales
+
+3. **Mantenimiento**:
+   - Documentación detallada del proceso
+   - Sistema preparado para actualizaciones manuales
+   - Preservación de la arquitectura original
 
 ## 📝 Licencia
 Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE.md](LICENSE.md) para más detalles.
 
 ### Autores
-- Freddy Bautista
-- Javier Esquivel
-- Sebastian Viloria
+- **Freddy Bautista** - *Desarrollo de APIs y conexiones externas*
+- **Javier Esquivel** - *Modelado de datos y persistencia*
+- **Sebastian Viloria** - *Interfaz de usuario y documentación*
 
 Este proyecto es parte del curso de Programación Orientada a Objetos.
 

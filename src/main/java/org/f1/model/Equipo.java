@@ -1,9 +1,14 @@
 package org.f1.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class Equipo {
+import org.f1.model.interfaces.Informable;
+import org.f1.model.interfaces.Posicionable;
+import org.f1.model.interfaces.Puntuable;
+
+public class Equipo implements Posicionable, Puntuable, Informable {
     private String nombre;
     private String director;
     private String pais;
@@ -11,10 +16,12 @@ public class Equipo {
     private int puntosConstructores2024;
     private List<Piloto> pilotos;
     private String motorProveedor;
+    private List<Integer> posicionesPorCarrera;
 
     public Equipo() {
         this.pilotos = new ArrayList<>();
         this.puntosConstructores2024 = 0;
+        this.posicionesPorCarrera = new ArrayList<>();
     }
 
     public Equipo(String nombre, String director, String pais, String motorProveedor) {
@@ -25,6 +32,7 @@ public class Equipo {
         this.campeonatosGanados = 0;
         this.puntosConstructores2024 = 0;
         this.pilotos = new ArrayList<>();
+        this.posicionesPorCarrera = new ArrayList<>();
     }
 
     public void agregarPiloto(Piloto piloto) {
@@ -45,26 +53,98 @@ public class Equipo {
     }
     
 
-    /**
-     * TODO: Implementar por el equipo
-     * Este método debe retornar un String con el formato:
-     * "Nombre Equipo - Director - País - Campeonatos: X - Puntos 2024: XX"
-     * @return String con la información formateada del equipo
-     */
-    public String obtenerInformacionCompleta() {
-        // TODO: Implementar por el equipo
-        return "";
+    @Override
+    public double obtenerPosicionPromedio() {
+        if (posicionesPorCarrera.isEmpty()) {
+            return 0.0;
+        }
+        double suma = posicionesPorCarrera.stream()
+                .mapToInt(Integer::intValue)
+                .sum();
+        return suma / posicionesPorCarrera.size();
     }
 
-    /**
-     * TODO: Implementar por el equipo
-     * Este método debe retornar la posición promedio del equipo en la temporada actual
-     * basándose en las posiciones de sus pilotos
-     * @return double con la posición promedio
-     */
-    public double obtenerPosicionPromedio() {
-        // TODO: Implementar por el equipo
-        return 0.0;
+    @Override
+    public String obtenerInformacionBasica() {
+        return String.format("%s - %s", nombre, pais);
+    }
+
+    @Override
+    public String obtenerInformacionDetallada() {
+        StringBuilder info = new StringBuilder();
+        info.append(String.format("%s\nDirector: %s\nMotor: %s\nPilotos:\n", 
+            obtenerInformacionBasica(), director, motorProveedor));
+        
+        for (Piloto piloto : pilotos) {
+            info.append(String.format("- %s %s (#%d)\n", 
+                piloto.getNombre(), piloto.getApellido(), piloto.getNumero()));
+        }
+        
+        info.append(String.format("\nPuntos 2024: %d\nCampeonatos: %d", 
+            puntosConstructores2024, campeonatosGanados));
+        
+        return info.toString();
+    }
+
+    @Override
+    public String obtenerInformacionCompleta() {
+        return String.format("%s - Director: %s - Puntos 2024: %d - Campeonatos: %d",
+            obtenerInformacionBasica(), director, puntosConstructores2024, campeonatosGanados);
+    }
+
+    @Override
+    public int getPuntos() {
+        return puntosConstructores2024;
+    }
+
+    @Override
+    public void sumarPuntos(int puntos) {
+        this.puntosConstructores2024 += puntos;
+    }
+
+    @Override
+    public int calcularPuntosPorPosicion(int posicion) {
+        return switch (posicion) {
+            case 1 -> 25;
+            case 2 -> 18;
+            case 3 -> 15;
+            case 4 -> 12;
+            case 5 -> 10;
+            case 6 -> 8;
+            case 7 -> 6;
+            case 8 -> 4;
+            case 9 -> 2;
+            case 10 -> 1;
+            default -> 0;
+        };
+    }
+
+    @Override
+    public int obtenerMejorPosicion() {
+        if (posicionesPorCarrera.isEmpty()) {
+            return 0;
+        }
+        return Collections.min(posicionesPorCarrera);
+    }
+
+    @Override
+    public int obtenerPeorPosicion() {
+        if (posicionesPorCarrera.isEmpty()) {
+            return 0;
+        }
+        return Collections.max(posicionesPorCarrera);
+    }
+
+    @Override
+    public int obtenerPuntosTotales() {
+        return puntosConstructores2024;
+    }
+
+    @Override
+    public void actualizarPuntos(int posicion, String nombreCarrera) {
+        posicionesPorCarrera.add(posicion);
+        int puntos = calcularPuntosPorPosicion(posicion);
+        sumarPuntos(puntos);
     }
 
     // Getters y setters
@@ -105,7 +185,7 @@ public class Equipo {
     }
 
     public List<Piloto> getPilotos() {
-        return pilotos;
+        return new ArrayList<>(pilotos);
     }
 
     public String getMotorProveedor() {
@@ -116,7 +196,11 @@ public class Equipo {
         this.motorProveedor = motorProveedor;
     }
 
-    public void sumarPuntos(int puntos) {
-        this.puntosConstructores2024 += puntos;
+    public List<Integer> getPosicionesPorCarrera() {
+        return new ArrayList<>(posicionesPorCarrera);
+    }
+
+    public void setPosicionesPorCarrera(List<Integer> posicionesPorCarrera) {
+        this.posicionesPorCarrera = new ArrayList<>(posicionesPorCarrera);
     }
 } 

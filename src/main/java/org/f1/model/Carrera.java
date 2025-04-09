@@ -1,26 +1,33 @@
 package org.f1.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Carrera {
+import org.f1.model.interfaces.Informable;
+import org.f1.model.interfaces.Reportable;
+
+public class Carrera implements Reportable, Informable {
+    private String nombre;
     private Circuito circuito;
     private LocalDateTime fecha;
     private boolean esSprint;
+    private boolean completada;
     private List<ResultadoPiloto> resultados;
 
     public Carrera() {
         this.resultados = new ArrayList<>();
     }
 
-
-    public Carrera(Circuito circuito, LocalDateTime fecha, boolean esSprint) {
+    public Carrera(String nombre, Circuito circuito, LocalDateTime fecha, boolean esSprint, boolean completada) {
+        this.nombre = nombre;
         this.circuito = circuito;
         this.fecha = fecha;
         this.esSprint = esSprint;
+        this.completada = completada;
         this.resultados = new ArrayList<>();
     }
 
@@ -76,42 +83,142 @@ public class Carrera {
         piloto.actualizarPuntos(posicion, circuito.getNombre());
     }
 
-    /**
-     * TODO: Implementar por el equipo
-     * Este método debe generar un reporte de los puntos obtenidos por cada constructor en la carrera
-     * @return Map con el nombre del constructor como clave y los puntos obtenidos como valor
-     */
+    @Override
     public Map<String, Integer> generarReporteConstructores() {
-        // TODO: Implementar por el equipo
-        return new HashMap<>();
+        Map<String, Integer> puntosConstructores = new HashMap<>();
+        
+        for (ResultadoPiloto resultado : resultados) {
+            String nombreEquipo = resultado.getPiloto().getEquipo().getNombre();
+            int puntos = resultado.getPuntos();
+            
+            puntosConstructores.merge(nombreEquipo, puntos, Integer::sum);
+        }
+        
+        return puntosConstructores;
     }
 
-    /**
-     * TODO: Implementar por el equipo
-     * Este método debe retornar un String con el formato:
-     * "Circuito: Nombre - Fecha: DD/MM/YYYY HH:mm
-     * Tipo: [Sprint/Carrera Principal]
-     * Resultados:
-     * 1. Piloto1 - Equipo1 - Tiempo1 - XXpts
-     * 2. Piloto2 - Equipo2 - Tiempo2 - XXpts
-     * ..."
-     * @return String con la información formateada de la carrera
-     */
-    public String obtenerInformacionCompleta() {
-        // TODO: Implementar por el equipo
-        return "";
-    }
-
-    /**
-     * TODO: Implementar por el equipo
-     * Este método debe calcular la diferencia de tiempo entre el ganador y un piloto específico
-     * @param posicion la posición del piloto del que se quiere calcular la diferencia
-     * @return String con el formato "+XX.XXX" representando la diferencia en segundos
-     * @throws IllegalArgumentException si la posición no existe o es la primera posición
-     */
+    @Override
     public String calcularDiferenciaConGanador(int posicion) {
-        // TODO: Implementar por el equipo
-        return "";
+        if (posicion <= 1 || posicion > resultados.size()) {
+            throw new IllegalArgumentException("Posición inválida para calcular diferencia");
+        }
+
+        ResultadoPiloto ganador = resultados.get(0);
+        ResultadoPiloto piloto = resultados.get(posicion - 1);
+
+        if (ganador.getTiempo().equals("DNF") || piloto.getTiempo().equals("DNF")) {
+            return "DNF";
+        }
+
+        // Convertir tiempos de formato "1:30.500" a milisegundos
+        long tiempoGanador = convertirTiempoAMilisegundos(ganador.getTiempo());
+        long tiempoPiloto = convertirTiempoAMilisegundos(piloto.getTiempo());
+
+        // Calcular diferencia y formatear
+        long diferencia = tiempoPiloto - tiempoGanador;
+        return String.format("+%.3f", diferencia / 1000.0);
+    }
+
+    private long convertirTiempoAMilisegundos(String tiempo) {
+        String[] partes = tiempo.split("[:.]");
+        long minutos = 0;
+        long segundos = 0;
+        long milisegundos = 0;
+
+        if (partes.length == 3) {
+            // Formato "m:ss.SSS"
+            minutos = Long.parseLong(partes[0]);
+            segundos = Long.parseLong(partes[1]);
+            milisegundos = Long.parseLong(partes[2]);
+        } else if (partes.length == 2) {
+            // Formato "ss.SSS"
+            segundos = Long.parseLong(partes[0]);
+            milisegundos = Long.parseLong(partes[1]);
+        }
+
+        return (minutos * 60 * 1000) + (segundos * 1000) + milisegundos;
+    }
+
+    @Override
+    public String obtenerInformacionCompleta() {
+        StringBuilder info = new StringBuilder();
+        info.append(String.format("Circuito: %s - Fecha: %s\n", 
+            circuito.getNombre(), 
+            fecha.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));
+        info.append(String.format("Tipo: %s\n", completada ? "Completada" : "Pendiente"));
+        info.append("Resultados:\n");
+        
+        for (int i = 0; i < resultados.size(); i++) {
+            ResultadoPiloto resultado = resultados.get(i);
+            info.append(String.format("%d. %s - %s - %s - %d pts\n",
+                i + 1,
+                resultado.getPiloto().obtenerInformacionBasica(),
+                resultado.getPiloto().getEquipo().getNombre(),
+                resultado.getTiempo(),
+                resultado.getPuntos()));
+        }
+        
+        return info.toString();
+    }
+
+    @Override
+    public void generarReporte() {
+        System.out.println("=== Reporte de Carrera ===");
+        System.out.println(obtenerInformacionCompleta());
+        System.out.println("\nPuntos por Constructor:");
+        Map<String, Integer> puntosConstructores = generarReporteConstructores();
+        puntosConstructores.forEach((constructor, puntos) -> 
+            System.out.printf("%s: %d pts%n", constructor, puntos));
+    }
+
+    @Override
+    public void exportarReporte(String formato) {
+        // TODO: Implementar exportación a diferentes formatos (PDF, Excel, etc.)
+        throw new UnsupportedOperationException("Exportación a " + formato + " aún no implementada");
+    }
+
+    @Override
+    public String obtenerReporteResumido() {
+        StringBuilder resumen = new StringBuilder();
+        resumen.append(String.format("Carrera: %s%n", circuito.getNombre()));
+        resumen.append(String.format("Fecha: %s%n", fecha.toString()));
+        resumen.append(String.format("Tipo: %s%n", completada ? "Completada" : "Pendiente"));
+        resumen.append(String.format("Ganador: %s%n", resultados.get(0).getPiloto().getNombre()));
+        return resumen.toString();
+    }
+
+    @Override
+    public String obtenerInformacionBasica() {
+        return String.format("%s - %s - %s - %s",
+            nombre,
+            circuito.getNombre(),
+            esSprint ? "Sprint" : "Carrera Principal",
+            completada ? "Completada" : "Pendiente");
+    }
+
+    @Override
+    public String obtenerInformacionDetallada() {
+        StringBuilder info = new StringBuilder();
+        info.append(obtenerInformacionBasica()).append("\n\nResultados:\n");
+        
+        for (int i = 0; i < resultados.size(); i++) {
+            ResultadoPiloto resultado = resultados.get(i);
+            info.append(String.format("%d. %s - %s - %d pts%n",
+                i + 1,
+                resultado.getPiloto().obtenerInformacionBasica(),
+                resultado.getPiloto().getEquipo().getNombre(),
+                resultado.getPuntos()));
+        }
+        
+        return info.toString();
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public Circuito getCircuito() {
@@ -138,12 +245,29 @@ public class Carrera {
         this.esSprint = esSprint;
     }
 
+    public boolean isCompletada() {
+        return completada;
+    }
+
+    public void setCompletada(boolean completada) {
+        this.completada = completada;
+    }
+
     public List<ResultadoPiloto> getResultados() {
         return resultados;
     }
 
     public void setResultados(List<ResultadoPiloto> resultados) {
         this.resultados = resultados;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s - %s - %s - %s", 
+            nombre, 
+            circuito.getNombre(),
+            esSprint ? "Sprint" : "Carrera Principal",
+            completada ? "Completada" : "Pendiente");
     }
 } 
 

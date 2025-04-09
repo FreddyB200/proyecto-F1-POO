@@ -1,10 +1,10 @@
 package org.f1.model;
 
 public abstract class Persona {
-    private String nombre;
-    private String apellido;
-    private String nacionalidad;
-    private int edad;
+    protected String nombre;
+    protected String apellido;
+    protected String nacionalidad;
+    protected int edad;
 
 
     public Persona() {

@@ -1,8 +1,12 @@
 package org.f1.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-public class Circuito {
+import org.f1.model.interfaces.Informable;
+import org.f1.model.interfaces.Validable;
+
+public class Circuito implements Validable, Informable {
     private String nombre;
     private String pais;
     private double longitud; // en kilómetros
@@ -71,38 +75,71 @@ public class Circuito {
         this.fechaCarreraSprint = fechaCarreraSprint;
     }
 
-    /**
-     * TODO: Implementar por el equipo
-     * Este método debe validar que la fecha del sprint sea anterior a la carrera principal
-     * y que ambas fechas estén en el año 2024
-     * @return true si las fechas son válidas, false en caso contrario
-     */
+    @Override
     public boolean validarFechas() {
-        // TODO: Implementar por el equipo
-        return false;
+        if (fechaCarreraPrincipal == null || fechaCarreraSprint == null) {
+            return false;
+        }
+
+        // Validar que ambas fechas sean del año 2024
+        if (fechaCarreraPrincipal.getYear() != 2024 || fechaCarreraSprint.getYear() != 2024) {
+            return false;
+        }
+
+        // Validar que la carrera sprint sea antes que la carrera principal
+        return fechaCarreraSprint.isBefore(fechaCarreraPrincipal);
     }
 
-    /**
-     * TODO: Implementar por el equipo
-     * Este método debe calcular la distancia total de la carrera en kilómetros
-     * multiplicando la longitud del circuito por el número de vueltas
-     * @return distancia total de la carrera en kilómetros
-     */
+    @Override
     public double calcularDistanciaTotal() {
-        // TODO: Implementar por el equipo
-        return 0.0;
+        return longitud * numVueltas;
     }
 
-    /**
-     * TODO: Implementar por el equipo
-     * Este método debe retornar un String con el formato:
-     * "Nombre Circuito - País - Longitud: XX.XXX km - Vueltas: XX
-     * Carrera Principal: DD/MM/YYYY HH:mm
-     * Carrera Sprint: DD/MM/YYYY HH:mm"
-     * @return String con la información formateada del circuito
-     */
+    @Override
     public String obtenerInformacionCompleta() {
-        // TODO: Implementar por el equipo
-        return "";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return String.format("%s - %s - Longitud: %.3f km - Vueltas: %d\n" +
+                           "Carrera Principal: %s\n" +
+                           "Carrera Sprint: %s",
+            nombre,
+            pais,
+            longitud,
+            numVueltas,
+            fechaCarreraPrincipal.format(formatter),
+            fechaCarreraSprint.format(formatter));
+    }
+
+    @Override
+    public boolean validarRequisitosMinimos() {
+        // Validar longitud mínima (3.5 km)
+        if (longitud < 3.5) {
+            return false;
+        }
+        
+        // Validar número de vueltas (mínimo 50)
+        if (numVueltas < 50) {
+            return false;
+        }
+        
+        // Validar que tenga fechas asignadas
+        if (fechaCarreraPrincipal == null || fechaCarreraSprint == null) {
+            return false;
+        }
+        
+        return true;
+    }
+
+    @Override
+    public String obtenerInformacionBasica() {
+        return String.format("%s - %s - %.3f km", nombre, pais, longitud);
+    }
+
+    @Override
+    public String obtenerInformacionDetallada() {
+        return String.format("%s\nVueltas: %d\nCarrera Principal: %s\nCarrera Sprint: %s",
+            obtenerInformacionBasica(),
+            numVueltas,
+            fechaCarreraPrincipal.toString(),
+            fechaCarreraSprint.toString());
     }
 } 

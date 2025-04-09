@@ -1,194 +1,708 @@
 [
   {
-    "puntos2024": 0,
-    "numero": 0,
-    "campeonatosGanados": 0,
-    "carrerasDisputadas": 0,
-    "posicionesPorCarrera": {},
-    "edad": 0
+    "equipo": {
+      "nombre": "Red Bull Racing",
+      "director": "Christian Horner",
+      "pais": "Austria",
+      "motorProveedor": "Honda RBPT",
+      "campeonatosGanados": 6,
+      "puntosConstructores2024": 141,
+      "carrerasGanadas2024": 3,
+      "ultimaVictoria": "2024-04-07"
+    },
+    "puntos2024": 77,
+    "numero": 1,
+    "abreviatura": "VER",
+    "campeonatosGanados": 3,
+    "carrerasDisputadas": 189,
+    "carrerasGanadas": 57,
+    "podios": 102,
+    "poles": 35,
+    "vueltasRapidas": 33,
+    "posicionesPorCarrera": {
+      "Bahrein": 1,
+      "Arabia Saudita": 1,
+      "Australia": "DNF",
+      "Japón": 1
+    },
+    "nombre": "Max",
+    "apellido": "Verstappen",
+    "nacionalidad": "Holandés",
+    "edad": 26,
+    "temporadaActual": {
+      "posicionCampeonato": 1,
+      "carrerasCompletadas": 4,
+      "carrerasPendientes": 20,
+      "proximaCarrera": "GP de China",
+      "fechaProximaCarrera": "2024-04-21"
+    }
   },
   {
-    "puntos2024": 0,
-    "numero": 0,
+    "equipo": {
+      "nombre": "Red Bull Racing",
+      "director": "Christian Horner",
+      "pais": "Austria",
+      "motorProveedor": "Honda RBPT",
+      "campeonatosGanados": 6,
+      "puntosConstructores2024": 141,
+      "carrerasGanadas2024": 3,
+      "ultimaVictoria": "2024-04-07"
+    },
+    "puntos2024": 64,
+    "numero": 11,
+    "abreviatura": "PER",
     "campeonatosGanados": 0,
-    "carrerasDisputadas": 0,
-    "posicionesPorCarrera": {},
-    "edad": 0
+    "carrerasDisputadas": 262,
+    "carrerasGanadas": 6,
+    "podios": 39,
+    "poles": 3,
+    "vueltasRapidas": 10,
+    "posicionesPorCarrera": {
+      "Bahrein": 2,
+      "Arabia Saudita": 2,
+      "Australia": 5,
+      "Japón": 2
+    },
+    "nombre": "Sergio",
+    "apellido": "Pérez",
+    "nacionalidad": "Mexicano",
+    "edad": 34,
+    "temporadaActual": {
+      "posicionCampeonato": 2,
+      "carrerasCompletadas": 4,
+      "carrerasPendientes": 20,
+      "proximaCarrera": "GP de China",
+      "fechaProximaCarrera": "2024-04-21"
+    }
   },
   {
-    "puntos2024": 0,
-    "numero": 0,
+    "equipo": {
+      "nombre": "Ferrari",
+      "director": "Frédéric Vasseur",
+      "pais": "Italia",
+      "motorProveedor": "Ferrari",
+      "campeonatosGanados": 16,
+      "puntosConstructores2024": 120
+    },
+    "puntos2024": 59,
+    "numero": 16,
+    "abreviatura": "LEC",
     "campeonatosGanados": 0,
-    "carrerasDisputadas": 0,
-    "posicionesPorCarrera": {},
-    "edad": 0
+    "carrerasDisputadas": 127,
+    "podios": 0,
+    "poles": 0,
+    "vueltasRapidas": 0,
+    "posicionesPorCarrera": {
+      "Bahrein": 4,
+      "Arabia Saudita": 3,
+      "Australia": 1,
+      "Japón": 4
+    },
+    "nombre": "Charles",
+    "apellido": "Leclerc",
+    "nacionalidad": "Monegasco",
+    "edad": 26,
+    "temporadaActual": {
+      "posicionCampeonato": 3,
+      "carrerasCompletadas": 4,
+      "carrerasPendientes": 20,
+      "proximaCarrera": "GP de China",
+      "fechaProximaCarrera": "2024-04-21"
+    }
   },
   {
-    "puntos2024": 0,
-    "numero": 0,
+    "equipo": {
+      "nombre": "Ferrari",
+      "director": "Frédéric Vasseur",
+      "pais": "Italia",
+      "motorProveedor": "Ferrari",
+      "campeonatosGanados": 16,
+      "puntosConstructores2024": 120
+    },
+    "puntos2024": 61,
+    "numero": 55,
+    "abreviatura": "SAI",
     "campeonatosGanados": 0,
-    "carrerasDisputadas": 0,
-    "posicionesPorCarrera": {},
-    "edad": 0
+    "carrerasDisputadas": 183,
+    "podios": 30,
+    "poles": 2,
+    "vueltasRapidas": 2,
+    "posicionesPorCarrera": {
+      "Bahrein": 5,
+      "Arabia Saudita": 4,
+      "Australia": 3,
+      "Japón": 5
+    },
+    "nombre": "Carlos",
+    "apellido": "Sainz",
+    "nacionalidad": "Español",
+    "edad": 29,
+    "temporadaActual": {
+      "posicionCampeonato": 4,
+      "carrerasCompletadas": 4,
+      "carrerasPendientes": 20,
+      "proximaCarrera": "GP de China",
+      "fechaProximaCarrera": "2024-04-21"
+    }
   },
   {
-    "puntos2024": 0,
-    "numero": 0,
-    "campeonatosGanados": 0,
-    "carrerasDisputadas": 0,
-    "posicionesPorCarrera": {},
-    "edad": 0
+    "equipo": {
+      "nombre": "Mercedes",
+      "director": "Toto Wolff",
+      "pais": "Alemania",
+      "motorProveedor": "Mercedes",
+      "campeonatosGanados": 8,
+      "puntosConstructores2024": 73
+    },
+    "puntos2024": 35,
+    "numero": 44,
+    "abreviatura": "HAM",
+    "campeonatosGanados": 7,
+    "carrerasDisputadas": 332,
+    "podios": 182,
+    "poles": 103,
+    "vueltasRapidas": 65,
+    "posicionesPorCarrera": {
+      "Bahrein": 6,
+      "Arabia Saudita": 6,
+      "Australia": 8,
+      "Japón": 7
+    },
+    "nombre": "Lewis",
+    "apellido": "Hamilton",
+    "nacionalidad": "Británico",
+    "edad": 39,
+    "temporadaActual": {
+      "posicionCampeonato": 5,
+      "carrerasCompletadas": 4,
+      "carrerasPendientes": 20,
+      "proximaCarrera": "GP de China",
+      "fechaProximaCarrera": "2024-04-21"
+    }
   },
   {
-    "puntos2024": 0,
-    "numero": 0,
+    "equipo": {
+      "nombre": "Mercedes",
+      "director": "Toto Wolff",
+      "pais": "Alemania",
+      "motorProveedor": "Mercedes",
+      "campeonatosGanados": 8,
+      "puntosConstructores2024": 73
+    },
+    "puntos2024": 38,
+    "numero": 63,
+    "abreviatura": "RUS",
     "campeonatosGanados": 0,
-    "carrerasDisputadas": 0,
-    "posicionesPorCarrera": {},
-    "edad": 0
+    "carrerasDisputadas": 105,
+    "podios": 10,
+    "poles": 0,
+    "vueltasRapidas": 1,
+    "posicionesPorCarrera": {
+      "Bahrein": 7,
+      "Arabia Saudita": 8,
+      "Australia": 6,
+      "Japón": 8
+    },
+    "nombre": "George",
+    "apellido": "Russell",
+    "nacionalidad": "Británico",
+    "edad": 26,
+    "temporadaActual": {
+      "posicionCampeonato": 6,
+      "carrerasCompletadas": 4,
+      "carrerasPendientes": 20,
+      "proximaCarrera": "GP de China",
+      "fechaProximaCarrera": "2024-04-21"
+    }
   },
   {
-    "puntos2024": 0,
-    "numero": 0,
+    "equipo": {
+      "nombre": "McLaren",
+      "director": "Andrea Stella",
+      "pais": "Reino Unido",
+      "motorProveedor": "Mercedes",
+      "campeonatosGanados": 8,
+      "puntosConstructores2024": 54
+    },
+    "puntos2024": 28,
+    "numero": 4,
+    "abreviatura": "NOR",
     "campeonatosGanados": 0,
-    "carrerasDisputadas": 0,
-    "posicionesPorCarrera": {},
-    "edad": 0
+    "carrerasDisputadas": 104,
+    "podios": 15,
+    "poles": 4,
+    "vueltasRapidas": 5,
+    "posicionesPorCarrera": {
+      "Bahrein": 9,
+      "Arabia Saudita": 10,
+      "Australia": 9,
+      "Japón": 10
+    },
+    "nombre": "Lando",
+    "apellido": "Norris",
+    "nacionalidad": "Británico",
+    "edad": 24,
+    "temporadaActual": {
+      "posicionCampeonato": 7,
+      "carrerasCompletadas": 4,
+      "carrerasPendientes": 20,
+      "proximaCarrera": "GP de China",
+      "fechaProximaCarrera": "2024-04-21"
+    }
   },
   {
-    "puntos2024": 0,
-    "numero": 0,
+    "equipo": {
+      "nombre": "McLaren",
+      "director": "Andrea Stella",
+      "pais": "Reino Unido",
+      "motorProveedor": "Mercedes",
+      "campeonatosGanados": 8,
+      "puntosConstructores2024": 54
+    },
+    "puntos2024": 26,
+    "numero": 81,
+    "abreviatura": "PIA",
     "campeonatosGanados": 0,
-    "carrerasDisputadas": 0,
-    "posicionesPorCarrera": {},
-    "edad": 0
+    "carrerasDisputadas": 43,
+    "podios": 5,
+    "poles": 1,
+    "vueltasRapidas": 0,
+    "posicionesPorCarrera": {
+      "Bahrein": 10,
+      "Arabia Saudita": 9,
+      "Australia": 10,
+      "Japón": 9
+    },
+    "nombre": "Oscar",
+    "apellido": "Piastri",
+    "nacionalidad": "Australiano",
+    "edad": 22,
+    "temporadaActual": {
+      "posicionCampeonato": 8,
+      "carrerasCompletadas": 4,
+      "carrerasPendientes": 20,
+      "proximaCarrera": "GP de China",
+      "fechaProximaCarrera": "2024-04-21"
+    }
   },
   {
-    "puntos2024": 0,
-    "numero": 0,
-    "campeonatosGanados": 0,
-    "carrerasDisputadas": 0,
-    "posicionesPorCarrera": {},
-    "edad": 0
+    "equipo": {
+      "nombre": "Aston Martin",
+      "director": "Mike Krack",
+      "pais": "Reino Unido",
+      "motorProveedor": "Mercedes",
+      "campeonatosGanados": 0,
+      "puntosConstructores2024": 73
+    },
+    "puntos2024": 55,
+    "numero": 14,
+    "abreviatura": "ALO",
+    "campeonatosGanados": 2,
+    "carrerasDisputadas": 380,
+    "podios": 100,
+    "poles": 22,
+    "vueltasRapidas": 15,
+    "posicionesPorCarrera": {
+      "Bahrein": 3,
+      "Arabia Saudita": 5,
+      "Australia": 2,
+      "Japón": 3
+    },
+    "nombre": "Fernando",
+    "apellido": "Alonso",
+    "nacionalidad": "Español",
+    "edad": 42,
+    "temporadaActual": {
+      "posicionCampeonato": 9,
+      "carrerasCompletadas": 4,
+      "carrerasPendientes": 20,
+      "proximaCarrera": "GP de China",
+      "fechaProximaCarrera": "2024-04-21"
+    }
   },
   {
-    "puntos2024": 0,
-    "numero": 0,
+    "equipo": {
+      "nombre": "Aston Martin",
+      "director": "Mike Krack",
+      "pais": "Reino Unido",
+      "motorProveedor": "Mercedes",
+      "campeonatosGanados": 0,
+      "puntosConstructores2024": 73
+    },
+    "puntos2024": 18,
+    "numero": 18,
+    "abreviatura": "STR",
     "campeonatosGanados": 0,
-    "carrerasDisputadas": 0,
-    "posicionesPorCarrera": {},
-    "edad": 0
+    "carrerasDisputadas": 133,
+    "podios": 5,
+    "poles": 0,
+    "vueltasRapidas": 1,
+    "posicionesPorCarrera": {
+      "Bahrein": 8,
+      "Arabia Saudita": 7,
+      "Australia": 7,
+      "Japón": 6
+    },
+    "nombre": "Lance",
+    "apellido": "Stroll",
+    "nacionalidad": "Canadiense",
+    "edad": 25,
+    "temporadaActual": {
+      "posicionCampeonato": 10,
+      "carrerasCompletadas": 4,
+      "carrerasPendientes": 20,
+      "proximaCarrera": "GP de China",
+      "fechaProximaCarrera": "2024-04-21"
+    }
   },
   {
-    "puntos2024": 0,
-    "numero": 0,
+    "equipo": {
+      "nombre": "Alpine",
+      "director": "Bruno Famin",
+      "pais": "Francia",
+      "motorProveedor": "Renault",
+      "campeonatosGanados": 2,
+      "puntosConstructores2024": 42
+    },
+    "puntos2024": 22,
+    "numero": 31,
+    "abreviatura": "OCO",
     "campeonatosGanados": 0,
-    "carrerasDisputadas": 0,
-    "posicionesPorCarrera": {},
-    "edad": 0
+    "carrerasDisputadas": 133,
+    "podios": 7,
+    "poles": 1,
+    "vueltasRapidas": 2,
+    "posicionesPorCarrera": {
+      "Bahrein": 11,
+      "Arabia Saudita": 12,
+      "Australia": 11,
+      "Japón": 12
+    },
+    "nombre": "Esteban",
+    "apellido": "Ocon",
+    "nacionalidad": "Francés",
+    "edad": 27,
+    "temporadaActual": {
+      "posicionCampeonato": 11,
+      "carrerasCompletadas": 4,
+      "carrerasPendientes": 20,
+      "proximaCarrera": "GP de China",
+      "fechaProximaCarrera": "2024-04-21"
+    }
   },
   {
-    "puntos2024": 0,
-    "numero": 0,
+    "equipo": {
+      "nombre": "Alpine",
+      "director": "Bruno Famin",
+      "pais": "Francia",
+      "motorProveedor": "Renault",
+      "campeonatosGanados": 2,
+      "puntosConstructores2024": 42
+    },
+    "puntos2024": 20,
+    "numero": 10,
+    "abreviatura": "GAS",
     "campeonatosGanados": 0,
-    "carrerasDisputadas": 0,
-    "posicionesPorCarrera": {},
-    "edad": 0
+    "carrerasDisputadas": 127,
+    "podios": 4,
+    "poles": 0,
+    "vueltasRapidas": 1,
+    "posicionesPorCarrera": {
+      "Bahrein": 12,
+      "Arabia Saudita": 11,
+      "Australia": 12,
+      "Japón": 11
+    },
+    "nombre": "Pierre",
+    "apellido": "Gasly",
+    "nacionalidad": "Francés",
+    "edad": 28,
+    "temporadaActual": {
+      "posicionCampeonato": 12,
+      "carrerasCompletadas": 4,
+      "carrerasPendientes": 20,
+      "proximaCarrera": "GP de China",
+      "fechaProximaCarrera": "2024-04-21"
+    }
   },
   {
-    "puntos2024": 0,
-    "numero": 0,
+    "equipo": {
+      "nombre": "Williams",
+      "director": "James Vowles",
+      "pais": "Reino Unido",
+      "motorProveedor": "Mercedes",
+      "campeonatosGanados": 9,
+      "puntosConstructores2024": 6
+    },
+    "puntos2024": 2,
+    "numero": 23,
+    "abreviatura": "ALB",
     "campeonatosGanados": 0,
-    "carrerasDisputadas": 0,
-    "posicionesPorCarrera": {},
-    "edad": 0
+    "carrerasDisputadas": 89,
+    "podios": 1,
+    "poles": 0,
+    "vueltasRapidas": 0,
+    "posicionesPorCarrera": {
+      "Bahrein": 13,
+      "Arabia Saudita": 14,
+      "Australia": 13,
+      "Japón": 14
+    },
+    "nombre": "Alexander",
+    "apellido": "Albon",
+    "nacionalidad": "Tailandés",
+    "edad": 27,
+    "temporadaActual": {
+      "posicionCampeonato": 13,
+      "carrerasCompletadas": 4,
+      "carrerasPendientes": 20,
+      "proximaCarrera": "GP de China",
+      "fechaProximaCarrera": "2024-04-21"
+    }
   },
   {
-    "puntos2024": 0,
-    "numero": 0,
+    "equipo": {
+      "nombre": "Williams",
+      "director": "James Vowles",
+      "pais": "Reino Unido",
+      "motorProveedor": "Mercedes",
+      "campeonatosGanados": 9,
+      "puntosConstructores2024": 6
+    },
+    "puntos2024": 4,
+    "numero": 2,
+    "abreviatura": "SAR",
     "campeonatosGanados": 0,
-    "carrerasDisputadas": 0,
-    "posicionesPorCarrera": {},
-    "edad": 0
+    "carrerasDisputadas": 22,
+    "podios": 0,
+    "poles": 0,
+    "vueltasRapidas": 0,
+    "posicionesPorCarrera": {
+      "Bahrein": 14,
+      "Arabia Saudita": 13,
+      "Australia": 14,
+      "Japón": 13
+    },
+    "nombre": "Logan",
+    "apellido": "Sargeant",
+    "nacionalidad": "Estadounidense",
+    "edad": 23,
+    "temporadaActual": {
+      "posicionCampeonato": 14,
+      "carrerasCompletadas": 4,
+      "carrerasPendientes": 20,
+      "proximaCarrera": "GP de China",
+      "fechaProximaCarrera": "2024-04-21"
+    }
   },
   {
-    "puntos2024": 0,
-    "numero": 0,
+    "equipo": {
+      "nombre": "AlphaTauri",
+      "director": "Franz Tost",
+      "pais": "Italia",
+      "motorProveedor": "Honda RBPT",
+      "campeonatosGanados": 0,
+      "puntosConstructores2024": 22
+    },
+    "puntos2024": 12,
+    "numero": 3,
+    "abreviatura": "RIC",
     "campeonatosGanados": 0,
-    "carrerasDisputadas": 0,
-    "posicionesPorCarrera": {},
-    "edad": 0
+    "carrerasDisputadas": 239,
+    "podios": 8,
+    "poles": 1,
+    "vueltasRapidas": 2,
+    "posicionesPorCarrera": {
+      "Bahrein": 15,
+      "Arabia Saudita": 15,
+      "Australia": 16,
+      "Japón": 15
+    },
+    "nombre": "Daniel",
+    "apellido": "Ricciardo",
+    "nacionalidad": "Australiano",
+    "edad": 34,
+    "temporadaActual": {
+      "posicionCampeonato": 15,
+      "carrerasCompletadas": 4,
+      "carrerasPendientes": 20,
+      "proximaCarrera": "GP de China",
+      "fechaProximaCarrera": "2024-04-21"
+    }
   },
   {
-    "puntos2024": 0,
-    "numero": 0,
+    "equipo": {
+      "nombre": "AlphaTauri",
+      "director": "Franz Tost",
+      "pais": "Italia",
+      "motorProveedor": "Honda RBPT",
+      "campeonatosGanados": 0,
+      "puntosConstructores2024": 22
+    },
+    "puntos2024": 10,
+    "numero": 22,
+    "abreviatura": "TSU",
     "campeonatosGanados": 0,
-    "carrerasDisputadas": 0,
-    "posicionesPorCarrera": {},
-    "edad": 0
+    "carrerasDisputadas": 67,
+    "podios": 2,
+    "poles": 0,
+    "vueltasRapidas": 0,
+    "posicionesPorCarrera": {
+      "Bahrein": 16,
+      "Arabia Saudita": 16,
+      "Australia": 15,
+      "Japón": 16
+    },
+    "nombre": "Yuki",
+    "apellido": "Tsunoda",
+    "nacionalidad": "Japonés",
+    "edad": 23,
+    "temporadaActual": {
+      "posicionCampeonato": 16,
+      "carrerasCompletadas": 4,
+      "carrerasPendientes": 20,
+      "proximaCarrera": "GP de China",
+      "fechaProximaCarrera": "2024-04-21"
+    }
   },
   {
-    "puntos2024": 0,
-    "numero": 0,
+    "equipo": {
+      "nombre": "Stake F1 Team",
+      "director": "Alessandro Alunni Bravi",
+      "pais": "Suiza",
+      "motorProveedor": "Ferrari",
+      "campeonatosGanados": 0,
+      "puntosConstructores2024": 13
+    },
+    "puntos2024": 8,
+    "numero": 77,
+    "abreviatura": "BOT",
     "campeonatosGanados": 0,
-    "carrerasDisputadas": 0,
-    "posicionesPorCarrera": {},
-    "edad": 0
+    "carrerasDisputadas": 222,
+    "podios": 20,
+    "poles": 2,
+    "vueltasRapidas": 1,
+    "posicionesPorCarrera": {
+      "Bahrein": 17,
+      "Arabia Saudita": 17,
+      "Australia": 17,
+      "Japón": 17
+    },
+    "nombre": "Valtteri",
+    "apellido": "Bottas",
+    "nacionalidad": "Finlandés",
+    "edad": 34,
+    "temporadaActual": {
+      "posicionCampeonato": 17,
+      "carrerasCompletadas": 4,
+      "carrerasPendientes": 20,
+      "proximaCarrera": "GP de China",
+      "fechaProximaCarrera": "2024-04-21"
+    }
   },
   {
-    "puntos2024": 0,
-    "numero": 0,
+    "equipo": {
+      "nombre": "Stake F1 Team",
+      "director": "Alessandro Alunni Bravi",
+      "pais": "Suiza",
+      "motorProveedor": "Ferrari",
+      "campeonatosGanados": 0,
+      "puntosConstructores2024": 13
+    },
+    "puntos2024": 5,
+    "numero": 24,
+    "abreviatura": "ZHO",
     "campeonatosGanados": 0,
-    "carrerasDisputadas": 0,
-    "posicionesPorCarrera": {},
-    "edad": 0
+    "carrerasDisputadas": 44,
+    "podios": 1,
+    "poles": 0,
+    "vueltasRapidas": 0,
+    "posicionesPorCarrera": {
+      "Bahrein": 18,
+      "Arabia Saudita": 18,
+      "Australia": 18,
+      "Japón": 18
+    },
+    "nombre": "Guanyu",
+    "apellido": "Zhou",
+    "nacionalidad": "Chino",
+    "edad": 24,
+    "temporadaActual": {
+      "posicionCampeonato": 18,
+      "carrerasCompletadas": 4,
+      "carrerasPendientes": 20,
+      "proximaCarrera": "GP de China",
+      "fechaProximaCarrera": "2024-04-21"
+    }
   },
   {
-    "puntos2024": 0,
-    "numero": 0,
+    "equipo": {
+      "nombre": "Haas F1 Team",
+      "director": "Ayao Komatsu",
+      "pais": "Estados Unidos",
+      "motorProveedor": "Ferrari",
+      "campeonatosGanados": 0,
+      "puntosConstructores2024": 10
+    },
+    "puntos2024": 6,
+    "numero": 27,
+    "abreviatura": "HUL",
     "campeonatosGanados": 0,
-    "carrerasDisputadas": 0,
-    "posicionesPorCarrera": {},
-    "edad": 0
+    "carrerasDisputadas": 203,
+    "podios": 3,
+    "poles": 0,
+    "vueltasRapidas": 0,
+    "posicionesPorCarrera": {
+      "Bahrein": 19,
+      "Arabia Saudita": 19,
+      "Australia": 19,
+      "Japón": 19
+    },
+    "nombre": "Nico",
+    "apellido": "Hülkenberg",
+    "nacionalidad": "Alemán",
+    "edad": 36,
+    "temporadaActual": {
+      "posicionCampeonato": 19,
+      "carrerasCompletadas": 4,
+      "carrerasPendientes": 20,
+      "proximaCarrera": "GP de China",
+      "fechaProximaCarrera": "2024-04-21"
+    }
   },
   {
-    "puntos2024": 0,
-    "numero": 0,
+    "equipo": {
+      "nombre": "Haas F1 Team",
+      "director": "Ayao Komatsu",
+      "pais": "Estados Unidos",
+      "motorProveedor": "Ferrari",
+      "campeonatosGanados": 0,
+      "puntosConstructores2024": 10
+    },
+    "puntos2024": 4,
+    "numero": 20,
+    "abreviatura": "MAG",
     "campeonatosGanados": 0,
-    "carrerasDisputadas": 0,
-    "posicionesPorCarrera": {},
-    "edad": 0
-  },
-  {
-    "puntos2024": 0,
-    "numero": 0,
-    "campeonatosGanados": 0,
-    "carrerasDisputadas": 0,
-    "posicionesPorCarrera": {},
-    "edad": 0
-  },
-  {
-    "puntos2024": 0,
-    "numero": 0,
-    "campeonatosGanados": 0,
-    "carrerasDisputadas": 0,
-    "posicionesPorCarrera": {},
-    "edad": 0
-  },
-  {
-    "puntos2024": 0,
-    "numero": 0,
-    "campeonatosGanados": 0,
-    "carrerasDisputadas": 0,
-    "posicionesPorCarrera": {},
-    "edad": 0
-  },
-  {
-    "puntos2024": 0,
-    "numero": 0,
-    "campeonatosGanados": 0,
-    "carrerasDisputadas": 0,
-    "posicionesPorCarrera": {},
-    "edad": 0
+    "carrerasDisputadas": 174,
+    "podios": 0,
+    "poles": 0,
+    "vueltasRapidas": 0,
+    "posicionesPorCarrera": {
+      "Bahrein": 20,
+      "Arabia Saudita": 20,
+      "Australia": 20,
+      "Japón": 20
+    },
+    "nombre": "Kevin",
+    "apellido": "Magnussen",
+    "nacionalidad": "Danés",
+    "edad": 31,
+    "temporadaActual": {
+      "posicionCampeonato": 20,
+      "carrerasCompletadas": 4,
+      "carrerasPendientes": 20,
+      "proximaCarrera": "GP de China",
+      "fechaProximaCarrera": "2024-04-21"
+    }
   }
 ]

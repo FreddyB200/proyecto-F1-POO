@@ -16,11 +16,27 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
+/**
+ * Gestor de persistencia de datos para el sistema F1.
+ * 
+ * NOTA HISTÓRICA:
+ * Esta clase fue inicialmente diseñada para sincronizar datos con APIs externas.
+ * Actualmente opera en modo solo lectura, preservando los datos precargados.
+ * 
+ * @author Freddy Bautista - Diseño inicial y conexión API
+ * @author Javier Esquivel - Implementación de persistencia
+ * @author Sebastian Viloria - Documentación y mantenimiento
+ * @version 2.0
+ */
 public class DataManager {
     private static final String DATA_DIR = "data";
     private static final String PILOTOS_FILE = "pilotos.json";
+    private static final boolean MODO_SOLO_LECTURA = true;
     private final Gson gson;
 
+    /**
+     * Constructor que inicializa el gestor de JSON con la configuración necesaria.
+     */
     public DataManager() {
         this.gson = new GsonBuilder()
             .setPrettyPrinting()
@@ -29,6 +45,9 @@ public class DataManager {
         createDataDirectoryIfNotExists();
     }
 
+    /**
+     * Crea el directorio de datos si no existe.
+     */
     private void createDataDirectoryIfNotExists() {
         Path dataPath = Paths.get(DATA_DIR);
         if (!Files.exists(dataPath)) {
@@ -40,7 +59,19 @@ public class DataManager {
         }
     }
 
+    /**
+     * MÉTODO HISTÓRICO - Actualmente deshabilitado
+     * Originalmente usado para guardar datos de las APIs.
+     * Mantenido por razones de documentación y posible uso futuro.
+     * 
+     * @param pilotos Lista de pilotos a guardar
+     */
     public void guardarPilotos(List<Piloto> pilotos) {
+        if (MODO_SOLO_LECTURA) {
+            System.out.println("AVISO: Sistema en modo solo lectura. No se pueden modificar los datos.");
+            return;
+        }
+
         try {
             String jsonPilotos = gson.toJson(pilotos);
             Path filePath = Paths.get(DATA_DIR, PILOTOS_FILE);
@@ -52,24 +83,30 @@ public class DataManager {
         }
     }
 
+    /**
+     * Carga los datos de pilotos desde el archivo JSON.
+     * Este método es seguro y solo lee datos existentes.
+     * 
+     * @return List<Piloto> Lista de pilotos cargada del JSON
+     */
     public List<Piloto> cargarPilotos() {
         Path filePath = Paths.get(DATA_DIR, PILOTOS_FILE);
         
         if (!Files.exists(filePath)) {
-            System.out.println("No se encontró el archivo de pilotos. Se creará uno nuevo.");
+            System.err.println("AVISO: No se encontró el archivo de pilotos en: " + filePath.toAbsolutePath());
             return new ArrayList<>();
         }
 
         try {
             String jsonContent = Files.readString(filePath);
             if (jsonContent.trim().isEmpty()) {
-                System.out.println("El archivo de pilotos está vacío.");
+                System.err.println("AVISO: El archivo de pilotos está vacío.");
                 return new ArrayList<>();
             }
             
             Piloto[] pilotos = gson.fromJson(jsonContent, Piloto[].class);
             if (pilotos == null) {
-                System.out.println("Error al parsear el JSON de pilotos.");
+                System.err.println("Error al parsear el JSON de pilotos.");
                 return new ArrayList<>();
             }
             
@@ -85,6 +122,9 @@ public class DataManager {
         }
     }
 
+    /**
+     * Adaptador personalizado para serialización/deserialización de Equipo.
+     */
     private static class EquipoTypeAdapter extends TypeAdapter<Equipo> {
         @Override
         public void write(JsonWriter out, Equipo equipo) throws IOException {
@@ -115,27 +155,13 @@ public class DataManager {
             while (in.hasNext()) {
                 String name = in.nextName();
                 switch (name) {
-                    case "nombre":
-                        equipo.setNombre(in.nextString());
-                        break;
-                    case "director":
-                        equipo.setDirector(in.nextString());
-                        break;
-                    case "pais":
-                        equipo.setPais(in.nextString());
-                        break;
-                    case "motorProveedor":
-                        equipo.setMotorProveedor(in.nextString());
-                        break;
-                    case "campeonatosGanados":
-                        equipo.setCampeonatosGanados(in.nextInt());
-                        break;
-                    case "puntosConstructores2024":
-                        equipo.sumarPuntos(in.nextInt());
-                        break;
-                    default:
-                        in.skipValue();
-                        break;
+                    case "nombre" -> equipo.setNombre(in.nextString());
+                    case "director" -> equipo.setDirector(in.nextString());
+                    case "pais" -> equipo.setPais(in.nextString());
+                    case "motorProveedor" -> equipo.setMotorProveedor(in.nextString());
+                    case "campeonatosGanados" -> equipo.setCampeonatosGanados(in.nextInt());
+                    case "puntosConstructores2024" -> equipo.sumarPuntos(in.nextInt());
+                    default -> in.skipValue();
                 }
             }
             
