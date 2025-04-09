@@ -1,6 +1,5 @@
 package org.f1.model;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,11 +18,16 @@ import org.f1.model.interfaces.Puntuable;
 public class Piloto extends Persona implements Posicionable, Puntuable, Informable {
     private Equipo equipo;
     private int numero;
-    private String codigo;
+    private String abreviatura;
     private int puntos2024;
     private int campeonatosGanados;
     private int carrerasDisputadas;
-    private Map<String, Integer> posicionesPorCarrera;
+    private int carrerasGanadas;
+    private int podios;
+    private int poles;
+    private int vueltasRapidas;
+    private Map<String, String> posicionesPorCarrera;
+    private TemporadaActual temporadaActual;
 
     /**
      * Constructor por defecto.
@@ -45,17 +49,21 @@ public class Piloto extends Persona implements Posicionable, Puntuable, Informab
      * @param edad Edad del piloto
      * @param equipo Equipo al que pertenece
      * @param numero Número del coche
-     * @param codigo Código del piloto
+     * @param abreviatura Abreviatura del piloto
      */
     public Piloto(String nombre, String apellido, String nacionalidad, int edad,
-                 Equipo equipo, int numero, String codigo) {
+                 Equipo equipo, int numero, String abreviatura) {
         super(nombre, apellido, nacionalidad, edad);
         this.equipo = equipo;
         this.numero = numero;
-        this.codigo = codigo;
+        this.abreviatura = abreviatura;
         this.puntos2024 = 0;
         this.campeonatosGanados = 0;
         this.carrerasDisputadas = 0;
+        this.carrerasGanadas = 0;
+        this.podios = 0;
+        this.poles = 0;
+        this.vueltasRapidas = 0;
         this.posicionesPorCarrera = new HashMap<>();
     }
 
@@ -85,12 +93,12 @@ public class Piloto extends Persona implements Posicionable, Puntuable, Informab
         this.numero = numero;
     }
 
-    public String getCodigo() {
-        return codigo;
+    public String getAbreviatura() {
+        return abreviatura;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void setAbreviatura(String abreviatura) {
+        this.abreviatura = abreviatura;
     }
 
     /**
@@ -102,7 +110,7 @@ public class Piloto extends Persona implements Posicionable, Puntuable, Informab
      */
     @Override
     public void actualizarPuntos(int posicion, String nombreCarrera) {
-        posicionesPorCarrera.put(nombreCarrera, posicion);
+        posicionesPorCarrera.put(nombreCarrera, String.valueOf(posicion));
         int puntos = calcularPuntosPorPosicion(posicion);
         sumarPuntos(puntos);
     }
@@ -131,12 +139,12 @@ public class Piloto extends Persona implements Posicionable, Puntuable, Informab
 
     @Override
     public String obtenerInformacionDetallada() {
-        return String.format("%s\nEdad: %d\nNacionalidad: %s\nNúmero: %d\nCódigo: %s\nPuntos 2024: %d\nCampeonatos: %d",
+        return String.format("%s\nEdad: %d\nNacionalidad: %s\nNúmero: %d\nAbreviatura: %s\nPuntos 2024: %d\nCampeonatos: %d",
             obtenerInformacionBasica(),
             edad,
             nacionalidad,
             numero,
-            codigo,
+            abreviatura,
             puntos2024,
             campeonatosGanados);
     }
@@ -153,7 +161,7 @@ public class Piloto extends Persona implements Posicionable, Puntuable, Informab
             return 0.0;
         }
         double suma = posicionesPorCarrera.values().stream()
-                .mapToInt(Integer::intValue)
+                .mapToInt(Integer::parseInt)
                 .sum();
         return suma / posicionesPorCarrera.size();
     }
@@ -171,7 +179,23 @@ public class Piloto extends Persona implements Posicionable, Puntuable, Informab
         return carrerasDisputadas;
     }
 
-    public Map<String, Integer> getPosicionesPorCarrera() {
+    public int getCarrerasGanadas() {
+        return carrerasGanadas;
+    }
+
+    public int getPodios() {
+        return podios;
+    }
+
+    public int getPoles() {
+        return poles;
+    }
+
+    public int getVueltasRapidas() {
+        return vueltasRapidas;
+    }
+
+    public Map<String, String> getPosicionesPorCarrera() {
         return new HashMap<>(posicionesPorCarrera);
     }
 
@@ -180,7 +204,10 @@ public class Piloto extends Persona implements Posicionable, Puntuable, Informab
         if (posicionesPorCarrera.isEmpty()) {
             return 0;
         }
-        return Collections.min(posicionesPorCarrera.values());
+        return posicionesPorCarrera.values().stream()
+            .mapToInt(Integer::parseInt)
+            .min()
+            .orElse(0);
     }
 
     @Override
@@ -188,11 +215,71 @@ public class Piloto extends Persona implements Posicionable, Puntuable, Informab
         if (posicionesPorCarrera.isEmpty()) {
             return 0;
         }
-        return Collections.max(posicionesPorCarrera.values());
+        return posicionesPorCarrera.values().stream()
+            .mapToInt(Integer::parseInt)
+            .max()
+            .orElse(0);
     }
 
     @Override
     public int obtenerPuntosTotales() {
         return puntos2024;
+    }
+
+    public TemporadaActual getTemporadaActual() {
+        return temporadaActual;
+    }
+
+    public void setTemporadaActual(TemporadaActual temporadaActual) {
+        this.temporadaActual = temporadaActual;
+    }
+}
+
+class TemporadaActual {
+    private int posicionCampeonato;
+    private int carrerasCompletadas;
+    private int carrerasPendientes;
+    private String proximaCarrera;
+    private String fechaProximaCarrera;
+
+    // Getters y setters
+    public int getPosicionCampeonato() {
+        return posicionCampeonato;
+    }
+
+    public void setPosicionCampeonato(int posicion) {
+        this.posicionCampeonato = posicion;
+    }
+    
+    public int getCarrerasCompletadas() {
+        return carrerasCompletadas;
+    }
+
+    public void setCarrerasCompletadas(int carreras) {
+        this.carrerasCompletadas = carreras;
+    }
+    
+    public int getCarrerasPendientes() {
+        return carrerasPendientes;
+    }
+
+    public void setCarrerasPendientes(int carreras) {
+        this.carrerasPendientes = carreras;
+    }
+    
+    public String getProximaCarrera() {
+        return proximaCarrera;
+    }
+
+    public void setProximaCarrera(String carrera) {
+        this.proximaCarrera = carrera;
+    }
+    
+    public String getFechaProximaCarrera() {
+        return fechaProximaCarrera;
+    }
+
+    public void setFechaProximaCarrera(String fecha) {
+        this.fechaProximaCarrera = fecha;
     }
 } 

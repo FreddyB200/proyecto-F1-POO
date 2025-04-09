@@ -1,6 +1,7 @@
 package org.f1.data;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
@@ -8,11 +9,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.f1.model.Carrera;
 import org.f1.model.Circuito;
 import org.f1.model.Equipo;
 import org.f1.model.Piloto;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 /**
  * Clase que contiene los datos precargados de la temporada 2024 de F1.
@@ -68,19 +74,18 @@ public class DatosPrecargados {
      * pero ahora trabaja con datos precargados para mayor estabilidad.
      */
     private void cargarDatosIniciales() {
-        if (MODO_SOLO_LECTURA) {
-            try {
-                String jsonContent = Files.readString(Paths.get("data/pilotos.json"));
-                if (jsonContent != null && !jsonContent.isEmpty()) {
-                    cargarDatosDesdeJSON(jsonContent);
-                    return;
-                }
-            } catch (IOException e) {
-                System.err.println("Error al cargar datos del JSON. Usando datos por defecto.");
-                System.err.println("Detalles: " + e.getMessage());
+        try {
+            String jsonContent = Files.readString(Paths.get("data/pilotos.json"));
+            if (jsonContent != null && !jsonContent.isEmpty()) {
+                cargarDatosDesdeJSON(jsonContent);
+                System.out.println("Datos cargados exitosamente desde JSON");
+                return;
             }
+        } catch (IOException e) {
+            System.err.println("Error al cargar datos del JSON: " + e.getMessage());
+            System.err.println("Usando datos por defecto como respaldo");
+            inicializarDatosPorDefecto();
         }
-        inicializarDatosPorDefecto();
     }
 
     /**
@@ -89,9 +94,102 @@ public class DatosPrecargados {
      * @param jsonContent Contenido del archivo JSON
      */
     private void cargarDatosDesdeJSON(String jsonContent) {
-        // En una versión futura, podríamos implementar la carga real desde JSON
-        // Por ahora, usamos datos por defecto
-        inicializarDatosPorDefecto();
+        try {
+            Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+                .create();
+            
+            Type pilotoListType = new TypeToken<List<Piloto>>(){}.getType();
+            List<Piloto> pilotosJSON = gson.fromJson(jsonContent, pilotoListType);
+            
+            // Mapa temporal para evitar duplicados de equipos
+            Map<String, Equipo> equiposMap = new HashMap<>();
+            
+            for (Piloto piloto : pilotosJSON) {
+                // Agregar equipo si no existe
+                String nombreEquipo = piloto.getEquipo().getNombre();
+                if (!equiposMap.containsKey(nombreEquipo)) {
+                    equiposMap.put(nombreEquipo, piloto.getEquipo());
+                }
+                
+                // Asegurar que el piloto tenga referencia al equipo correcto
+                piloto.setEquipo(equiposMap.get(nombreEquipo));
+                pilotos.add(piloto);
+                
+                // Agregar piloto a su equipo
+                equiposMap.get(nombreEquipo).agregarPiloto(piloto);
+            }
+            
+            // Agregar equipos a la lista final
+            equipos.addAll(equiposMap.values());
+            
+            // Por ahora, inicializar circuitos y carreras con datos por defecto
+            // TODO: Implementar carga de circuitos y carreras desde JSON
+            inicializarCircuitosYCarreras();
+            
+        } catch (Exception e) {
+            System.err.println("Error al procesar JSON: " + e.getMessage());
+            inicializarDatosPorDefecto();
+        }
+    }
+
+    private void inicializarCircuitosYCarreras() {
+        // Carreras ya completadas
+        Circuito bahrein = new Circuito(
+            "Circuito Internacional de Bahrein",
+            "Bahrein",
+            5.412,
+            57,
+            LocalDateTime.of(2024, 3, 2, 16, 0),
+            LocalDateTime.of(2024, 3, 1, 16, 0)
+        );
+        circuitos.add(bahrein);
+        carreras.add(new Carrera("Gran Premio de Bahrein", bahrein, LocalDateTime.of(2024, 3, 2, 16, 0), false, true));
+
+        Circuito jeddah = new Circuito(
+            "Circuito de la Corniche de Jeddah",
+            "Arabia Saudita",
+            6.174,
+            50,
+            LocalDateTime.of(2024, 3, 9, 18, 0),
+            LocalDateTime.of(2024, 3, 8, 18, 0)
+        );
+        circuitos.add(jeddah);
+        carreras.add(new Carrera("Gran Premio de Arabia Saudita", jeddah, LocalDateTime.of(2024, 3, 9, 18, 0), false, true));
+
+        Circuito melbourne = new Circuito(
+            "Circuito de Albert Park",
+            "Australia",
+            5.278,
+            58,
+            LocalDateTime.of(2024, 3, 24, 5, 0),
+            LocalDateTime.of(2024, 3, 23, 5, 0)
+        );
+        circuitos.add(melbourne);
+        carreras.add(new Carrera("Gran Premio de Australia", melbourne, LocalDateTime.of(2024, 3, 24, 5, 0), false, true));
+
+        Circuito suzuka = new Circuito(
+            "Circuito de Suzuka",
+            "Japón",
+            5.807,
+            53,
+            LocalDateTime.of(2024, 4, 7, 7, 0),
+            LocalDateTime.of(2024, 4, 6, 7, 0)
+        );
+        circuitos.add(suzuka);
+        carreras.add(new Carrera("Gran Premio de Japón", suzuka, LocalDateTime.of(2024, 4, 7, 7, 0), false, true));
+
+        // Próxima carrera
+        Circuito shanghai = new Circuito(
+            "Circuito Internacional de Shanghai",
+            "China",
+            5.451,
+            56,
+            LocalDateTime.of(2024, 4, 21, 8, 0),
+            LocalDateTime.of(2024, 4, 20, 8, 0)
+        );
+        circuitos.add(shanghai);
+        carreras.add(new Carrera("Gran Premio de China", shanghai, LocalDateTime.of(2024, 4, 21, 8, 0), false, false));
     }
 
     /**
@@ -135,7 +233,7 @@ public class DatosPrecargados {
         circuitos.add(bahrein);
 
         // Inicializar primera carrera 2024
-        Carrera carreraBahrein = new Carrera(bahrein, LocalDateTime.of(2024, 3, 2, 16, 0), false);
+        Carrera carreraBahrein = new Carrera("Gran Premio de Bahrein", bahrein, LocalDateTime.of(2024, 3, 2, 16, 0), false, false);
         carreras.add(carreraBahrein);
     }
 
@@ -199,5 +297,29 @@ public class DatosPrecargados {
             clasificacion.put(equipo.getNombre(), equipo.getPuntos());
         }
         return clasificacion;
+    }
+
+    /**
+     * Busca un piloto por su número.
+     * 
+     * @param numero Número del piloto
+     * @return Piloto encontrado o null si no existe
+     */
+    public Piloto getPilotoPorNumero(int numero) {
+        return pilotos.stream()
+            .filter(p -> p.getNumero() == numero)
+            .findFirst()
+            .orElse(null);
+    }
+
+    /**
+     * Obtiene la próxima carrera no completada.
+     * 
+     * @return Optional con la próxima carrera o empty si no hay más carreras
+     */
+    public Optional<Carrera> getProximaCarrera() {
+        return carreras.stream()
+            .filter(c -> !c.isCompletada())
+            .findFirst();
     }
 } 

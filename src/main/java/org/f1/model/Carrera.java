@@ -11,20 +11,23 @@ import org.f1.model.interfaces.Informable;
 import org.f1.model.interfaces.Reportable;
 
 public class Carrera implements Reportable, Informable {
+    private String nombre;
     private Circuito circuito;
     private LocalDateTime fecha;
     private boolean esSprint;
+    private boolean completada;
     private List<ResultadoPiloto> resultados;
 
     public Carrera() {
         this.resultados = new ArrayList<>();
     }
 
-
-    public Carrera(Circuito circuito, LocalDateTime fecha, boolean esSprint) {
+    public Carrera(String nombre, Circuito circuito, LocalDateTime fecha, boolean esSprint, boolean completada) {
+        this.nombre = nombre;
         this.circuito = circuito;
         this.fecha = fecha;
         this.esSprint = esSprint;
+        this.completada = completada;
         this.resultados = new ArrayList<>();
     }
 
@@ -142,7 +145,7 @@ public class Carrera implements Reportable, Informable {
         info.append(String.format("Circuito: %s - Fecha: %s\n", 
             circuito.getNombre(), 
             fecha.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));
-        info.append(String.format("Tipo: %s\n", esSprint ? "Sprint" : "Carrera Principal"));
+        info.append(String.format("Tipo: %s\n", completada ? "Completada" : "Pendiente"));
         info.append("Resultados:\n");
         
         for (int i = 0; i < resultados.size(); i++) {
@@ -179,17 +182,18 @@ public class Carrera implements Reportable, Informable {
         StringBuilder resumen = new StringBuilder();
         resumen.append(String.format("Carrera: %s%n", circuito.getNombre()));
         resumen.append(String.format("Fecha: %s%n", fecha.toString()));
-        resumen.append(String.format("Tipo: %s%n", esSprint ? "Sprint" : "Carrera Principal"));
+        resumen.append(String.format("Tipo: %s%n", completada ? "Completada" : "Pendiente"));
         resumen.append(String.format("Ganador: %s%n", resultados.get(0).getPiloto().getNombre()));
         return resumen.toString();
     }
 
     @Override
     public String obtenerInformacionBasica() {
-        return String.format("%s - %s - %s",
+        return String.format("%s - %s - %s - %s",
+            nombre,
             circuito.getNombre(),
-            fecha.toString(),
-            esSprint ? "Sprint" : "Carrera Principal");
+            esSprint ? "Sprint" : "Carrera Principal",
+            completada ? "Completada" : "Pendiente");
     }
 
     @Override
@@ -207,6 +211,14 @@ public class Carrera implements Reportable, Informable {
         }
         
         return info.toString();
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public Circuito getCircuito() {
@@ -233,12 +245,29 @@ public class Carrera implements Reportable, Informable {
         this.esSprint = esSprint;
     }
 
+    public boolean isCompletada() {
+        return completada;
+    }
+
+    public void setCompletada(boolean completada) {
+        this.completada = completada;
+    }
+
     public List<ResultadoPiloto> getResultados() {
         return resultados;
     }
 
     public void setResultados(List<ResultadoPiloto> resultados) {
         this.resultados = resultados;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s - %s - %s - %s", 
+            nombre, 
+            circuito.getNombre(),
+            esSprint ? "Sprint" : "Carrera Principal",
+            completada ? "Completada" : "Pendiente");
     }
 } 
 
