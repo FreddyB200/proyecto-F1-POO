@@ -1,38 +1,32 @@
 package org.f1.ui;
 
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
-import org.f1.api.APIClient;
-import org.f1.data.DataManager;
+import org.f1.data.DatosPrecargados;
 import org.f1.model.Piloto;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
-
+/**
+ * Interfaz de usuario principal para el sistema de F1.
+ * Los datos son precargados desde archivos JSON que fueron inicialmente
+ * poblados usando la API de Ergast (ver documentación del proyecto).
+ */
 public class MainUI {
-    private final APIClient apiClient;
-    private final DataManager dataManager;
+    private final DatosPrecargados datos;
     private final Scanner scanner;
 
     public MainUI() {
-        this.apiClient = new APIClient();
-        this.dataManager = new DataManager();
+        this.datos = DatosPrecargados.getInstance();
         this.scanner = new Scanner(System.in);
     }
 
     public void mostrarMenu() {
         while (true) {
             System.out.println("\n=== F1 Stats 2024 ===");
-            System.out.println("1. Cargar pilotos desde API");
-            System.out.println("2. Mostrar lista de pilotos guardados");
-            System.out.println("3. Ver clasificación de pilotos");
-            System.out.println("4. Ver clasificación de constructores");
+            System.out.println("1. Mostrar lista de pilotos");
+            System.out.println("2. Ver clasificación de pilotos");
+            System.out.println("3. Ver clasificación de constructores");
+            System.out.println("4. Ver calendario de carreras");
             System.out.println("5. Salir");
             System.out.print("Seleccione una opción: ");
 
@@ -41,16 +35,16 @@ public class MainUI {
 
             switch (opcion) {
                 case 1:
-                    cargarPilotosDesdeAPI();
+                    mostrarPilotos();
                     break;
                 case 2:
-                    mostrarPilotosGuardados();
-                    break;
-                case 3:
                     mostrarClasificacionPilotos();
                     break;
-                case 4:
+                case 3:
                     mostrarClasificacionConstructores();
+                    break;
+                case 4:
+                    mostrarCalendario();
                     break;
                 case 5:
                     System.out.println("¡Hasta luego!");
@@ -61,41 +55,9 @@ public class MainUI {
         }
     }
 
-    private void cargarPilotosDesdeAPI() {
-        try {
-            String datosJSON = apiClient.fetchDrivers2024();
-            System.out.println("Datos obtenidos de la API:");
-            System.out.println(datosJSON);
-
-            // Parsear el JSON a objetos Piloto
-            JsonObject jsonObject = JsonParser.parseString(datosJSON).getAsJsonObject();
-            JsonObject driverTable = jsonObject.getAsJsonObject("MRData").getAsJsonObject("DriverTable");
-            String driversJson = driverTable.get("Drivers").toString();
-
-            Gson gson = new Gson();
-            Type pilotoListType = new TypeToken<ArrayList<Piloto>>(){}.getType();
-            List<Piloto> pilotos = gson.fromJson(driversJson, pilotoListType);
-
-            // Guardar los pilotos en el archivo JSON
-            dataManager.guardarPilotos(pilotos);
-            System.out.println("Pilotos guardados exitosamente.");
-
-        } catch (IOException | InterruptedException e) {
-            System.err.println("Error al cargar datos de la API: " + e.getMessage());
-            System.out.println("Intentando cargar datos locales...");
-            mostrarPilotosGuardados();
-        }
-    }
-
-    private void mostrarPilotosGuardados() {
-        List<Piloto> pilotos = dataManager.cargarPilotos();
-        if (pilotos.isEmpty()) {
-            System.out.println("No hay pilotos guardados.");
-            return;
-        }
-
-        System.out.println("\nPilotos guardados:");
-        for (Piloto piloto : pilotos) {
+    private void mostrarPilotos() {
+        System.out.println("\nPilotos de la temporada 2024:");
+        for (Piloto piloto : datos.getPilotos()) {
             System.out.printf("%s %s - %s (#%d)%n",
                 piloto.getNombre(),
                 piloto.getApellido(),
@@ -105,24 +67,31 @@ public class MainUI {
     }
 
     private void mostrarClasificacionPilotos() {
-        List<Piloto> pilotos = dataManager.cargarPilotos();
-        if (pilotos.isEmpty()) {
-            System.out.println("No hay datos de clasificación disponibles.");
-            return;
-        }
-
         System.out.println("\nClasificación de Pilotos:");
-        pilotos.stream()
-            .sorted((p1, p2) -> p2.getPuntos() - p1.getPuntos())
-            .forEach(p -> System.out.printf("%s %s - %d puntos%n",
-                p.getNombre(),
-                p.getApellido(),
-                p.getPuntos()));
+        Map<String, Integer> clasificacion = datos.obtenerClasificacionPilotos();
+        clasificacion.entrySet().stream()
+            .sorted((e1, e2) -> e2.getValue().compareTo(e1.getValue()))
+            .forEach(e -> System.out.printf("%s - %d puntos%n",
+                e.getKey(), e.getValue()));
     }
 
     private void mostrarClasificacionConstructores() {
-        // TODO: Implementar la lógica para mostrar la clasificación de constructores
-        System.out.println("Funcionalidad en desarrollo...");
+        System.out.println("\nClasificación de Constructores:");
+        Map<String, Integer> clasificacion = datos.obtenerClasificacionConstructores();
+        clasificacion.entrySet().stream()
+            .sorted((e1, e2) -> e2.getValue().compareTo(e1.getValue()))
+            .forEach(e -> System.out.printf("%s - %d puntos%n",
+                e.getKey(), e.getValue()));
+    }
+
+    private void mostrarCalendario() {
+        System.out.println("\nCalendario de carreras 2024:");
+        datos.getCircuitos().forEach(circuito -> 
+            System.out.printf("%s - %s%n",
+                circuito.getNombre(),
+                circuito.getFechaCarreraPrincipal().format(
+                    java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")
+                )));
     }
 
     public static void main(String[] args) {
