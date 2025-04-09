@@ -1,9 +1,82 @@
 [
   {
-    "puntos2024": 3,
-    "numero": 2,
-    "campeonatosGanados": 2,
-    "carrerasDisputadas": 2,
-    "edad": 17
+    "equipo": {
+      "nombre": "Red Bull Racing",
+      "director": "Christian Horner",
+      "pais": "Reino Unido",
+      "motorProveedor": "Honda RBPT",
+      "campeonatosGanados": 0,
+      "puntosConstructores2024": 0
+    },
+    "puntos2024": 0,
+    "numero": 1,
+    "abreviatura": "VER",
+    "campeonatosGanados": 0,
+    "carrerasDisputadas": 0,
+    "posicionesPorCarrera": {},
+    "nombre": "Max",
+    "apellido": "Verstappen",
+    "nacionalidad": "Holandés",
+    "edad": 26
+  },
+  {
+    "equipo": {
+      "nombre": "Red Bull Racing",
+      "director": "Christian Horner",
+      "pais": "Reino Unido",
+      "motorProveedor": "Honda RBPT",
+      "campeonatosGanados": 0,
+      "puntosConstructores2024": 0
+    },
+    "puntos2024": 0,
+    "numero": 11,
+    "abreviatura": "PER",
+    "campeonatosGanados": 0,
+    "carrerasDisputadas": 0,
+    "posicionesPorCarrera": {},
+    "nombre": "Sergio",
+    "apellido": "Pérez",
+    "nacionalidad": "Mexicano",
+    "edad": 34
+  },
+  {
+    "equipo": {
+      "nombre": "Ferrari",
+      "director": "Frédéric Vasseur",
+      "pais": "Italia",
+      "motorProveedor": "Ferrari",
+      "campeonatosGanados": 0,
+      "puntosConstructores2024": 0
+    },
+    "puntos2024": 0,
+    "numero": 16,
+    "abreviatura": "LEC",
+    "campeonatosGanados": 0,
+    "carrerasDisputadas": 0,
+    "posicionesPorCarrera": {},
+    "nombre": "Charles",
+    "apellido": "Leclerc",
+    "nacionalidad": "Monegasco",
+    "edad": 26
+  },
+  {
+    "equipo": {
+      "nombre": "Ferrari",
+      "director": "Frédéric Vasseur",
+      "pais": "Italia",
+      "motorProveedor": "Ferrari",
+      "campeonatosGanados": 0,
+      "puntosConstructores2024": 0
+    },
+    "puntos2024": 0,
+    "numero": 55,
+    "abreviatura": "SAI",
+    "campeonatosGanados": 0,
+    "carrerasDisputadas": 0,
+    "posicionesPorCarrera": {},
+    "nombre": "Carlos",
+    "apellido": "Sainz",
+    "nacionalidad": "Español",
+    "edad": 29
   }
 ]
