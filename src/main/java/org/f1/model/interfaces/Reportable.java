@@ -20,4 +20,8 @@ public interface Reportable {
      * @throws IllegalArgumentException si la posición no existe o es la primera posición
      */
     String calcularDiferenciaConGanador(int posicion);
+
+    void generarReporte();
+    void exportarReporte(String formato);
+    String obtenerReporteResumido();
 } 

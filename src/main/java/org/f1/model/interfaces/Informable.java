@@ -10,4 +10,8 @@ public interface Informable {
      * @return String con la información formateada
      */
     String obtenerInformacionCompleta();
+
+    String obtenerInformacionBasica();
+
+    String obtenerInformacionDetallada();
 } 
