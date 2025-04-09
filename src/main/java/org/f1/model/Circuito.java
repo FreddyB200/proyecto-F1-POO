@@ -2,7 +2,10 @@ package org.f1.model;
 
 import java.time.LocalDateTime;
 
-public class Circuito {
+import org.f1.model.interfaces.Informable;
+import org.f1.model.interfaces.Validable;
+
+public class Circuito implements Validable, Informable {
     private String nombre;
     private String pais;
     private double longitud; // en kilómetros
@@ -71,38 +74,21 @@ public class Circuito {
         this.fechaCarreraSprint = fechaCarreraSprint;
     }
 
-    /**
-     * TODO: Implementar por el equipo
-     * Este método debe validar que la fecha del sprint sea anterior a la carrera principal
-     * y que ambas fechas estén en el año 2024
-     * @return true si las fechas son válidas, false en caso contrario
-     */
+    @Override
     public boolean validarFechas() {
-        // TODO: Implementar por el equipo
+        // TODO: Implementar por Javier
         return false;
     }
 
-    /**
-     * TODO: Implementar por el equipo
-     * Este método debe calcular la distancia total de la carrera en kilómetros
-     * multiplicando la longitud del circuito por el número de vueltas
-     * @return distancia total de la carrera en kilómetros
-     */
+    @Override
     public double calcularDistanciaTotal() {
-        // TODO: Implementar por el equipo
+        // TODO: Implementar por Javier
         return 0.0;
     }
 
-    /**
-     * TODO: Implementar por el equipo
-     * Este método debe retornar un String con el formato:
-     * "Nombre Circuito - País - Longitud: XX.XXX km - Vueltas: XX
-     * Carrera Principal: DD/MM/YYYY HH:mm
-     * Carrera Sprint: DD/MM/YYYY HH:mm"
-     * @return String con la información formateada del circuito
-     */
+    @Override
     public String obtenerInformacionCompleta() {
-        // TODO: Implementar por el equipo
+        // TODO: Implementar por Sebastian
         return "";
     }
 } 

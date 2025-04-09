@@ -3,7 +3,10 @@ package org.f1.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Equipo {
+import org.f1.model.interfaces.Posicionable;
+import org.f1.model.interfaces.Puntuable;
+
+public class Equipo implements Posicionable, Puntuable {
     private String nombre;
     private String director;
     private String pais;
@@ -45,26 +48,32 @@ public class Equipo {
     }
     
 
-    /**
-     * TODO: Implementar por el equipo
-     * Este método debe retornar un String con el formato:
-     * "Nombre Equipo - Director - País - Campeonatos: X - Puntos 2024: XX"
-     * @return String con la información formateada del equipo
-     */
+    @Override
+    public double obtenerPosicionPromedio() {
+        // TODO: Implementar por Sebastian
+        return 0.0;
+    }
+
+    @Override
     public String obtenerInformacionCompleta() {
-        // TODO: Implementar por el equipo
+        // TODO: Implementar por Sebastian
         return "";
     }
 
-    /**
-     * TODO: Implementar por el equipo
-     * Este método debe retornar la posición promedio del equipo en la temporada actual
-     * basándose en las posiciones de sus pilotos
-     * @return double con la posición promedio
-     */
-    public double obtenerPosicionPromedio() {
-        // TODO: Implementar por el equipo
-        return 0.0;
+    @Override
+    public int getPuntos() {
+        return puntosConstructores2024;
+    }
+
+    @Override
+    public void sumarPuntos(int puntos) {
+        this.puntosConstructores2024 += puntos;
+    }
+
+    @Override
+    public int calcularPuntosPorPosicion(int posicion) {
+        // TODO: Implementar por Javier
+        return 0;
     }
 
     // Getters y setters
@@ -114,9 +123,5 @@ public class Equipo {
 
     public void setMotorProveedor(String motorProveedor) {
         this.motorProveedor = motorProveedor;
-    }
-
-    public void sumarPuntos(int puntos) {
-        this.puntosConstructores2024 += puntos;
     }
 } 

@@ -6,7 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Carrera {
+import org.f1.model.interfaces.Informable;
+import org.f1.model.interfaces.Reportable;
+
+public class Carrera implements Reportable, Informable {
     private Circuito circuito;
     private LocalDateTime fecha;
     private boolean esSprint;
@@ -76,41 +79,21 @@ public class Carrera {
         piloto.actualizarPuntos(posicion, circuito.getNombre());
     }
 
-    /**
-     * TODO: Implementar por el equipo
-     * Este método debe generar un reporte de los puntos obtenidos por cada constructor en la carrera
-     * @return Map con el nombre del constructor como clave y los puntos obtenidos como valor
-     */
+    @Override
     public Map<String, Integer> generarReporteConstructores() {
-        // TODO: Implementar por el equipo
+        // TODO: Implementar por Sebastian
         return new HashMap<>();
     }
 
-    /**
-     * TODO: Implementar por el equipo
-     * Este método debe retornar un String con el formato:
-     * "Circuito: Nombre - Fecha: DD/MM/YYYY HH:mm
-     * Tipo: [Sprint/Carrera Principal]
-     * Resultados:
-     * 1. Piloto1 - Equipo1 - Tiempo1 - XXpts
-     * 2. Piloto2 - Equipo2 - Tiempo2 - XXpts
-     * ..."
-     * @return String con la información formateada de la carrera
-     */
-    public String obtenerInformacionCompleta() {
-        // TODO: Implementar por el equipo
+    @Override
+    public String calcularDiferenciaConGanador(int posicion) {
+        // TODO: Implementar por Sebastian
         return "";
     }
 
-    /**
-     * TODO: Implementar por el equipo
-     * Este método debe calcular la diferencia de tiempo entre el ganador y un piloto específico
-     * @param posicion la posición del piloto del que se quiere calcular la diferencia
-     * @return String con el formato "+XX.XXX" representando la diferencia en segundos
-     * @throws IllegalArgumentException si la posición no existe o es la primera posición
-     */
-    public String calcularDiferenciaConGanador(int posicion) {
-        // TODO: Implementar por el equipo
+    @Override
+    public String obtenerInformacionCompleta() {
+        // TODO: Implementar por Sebastian
         return "";
     }
 

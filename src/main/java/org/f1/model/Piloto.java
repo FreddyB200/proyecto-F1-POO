@@ -3,6 +3,9 @@ package org.f1.model;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.f1.model.interfaces.Posicionable;
+import org.f1.model.interfaces.Puntuable;
+
 /**
  * Clase que representa un piloto de Fórmula 1 en la temporada 2024.
  * Extiende de la clase Persona y contiene información específica del piloto
@@ -11,7 +14,7 @@ import java.util.Map;
  * @author Equipo de Desarrollo F1
  * @version 1.0
  */
-public class Piloto extends Persona {
+public class Piloto extends Persona implements Posicionable, Puntuable {
     private Equipo equipo;
     private int puntos2024;
     private int numero;
@@ -60,12 +63,17 @@ public class Piloto extends Persona {
         this.equipo = equipo;
     }
 
+    @Override
     public int getPuntos() {
         return puntos2024;
     }
 
-    public void setPuntos(int puntos) {
-        this.puntos2024 = puntos;
+    @Override
+    public void sumarPuntos(int puntos) {
+        this.puntos2024 += puntos;
+        if (this.equipo != null) {
+            this.equipo.sumarPuntos(puntos);
+        }
     }
 
     public int getNumero() {
@@ -85,7 +93,7 @@ public class Piloto extends Persona {
     }
 
     /**
-     * Update de  los puntos del piloto basado en su posición en una carrera.
+     * Actualiza los puntos del piloto basado en su posición en una carrera.
      * También actualiza el mapa de posiciones y los puntos del equipo.
      *
      * @param posicion Posición final en la carrera
@@ -101,37 +109,21 @@ public class Piloto extends Persona {
         this.carrerasDisputadas++;
     }
 
-    /**
-     * TODO: Implementar por el equipo
-     * Este método debe calcular los puntos basados en la posición según el sistema de puntos de F1 2024:
-     * 1° = 25pts, 2° = 18pts, 3° = 15pts, etc.
-     * No olvidar el punto extra por vuelta rápida si aplica
-     * @param posicion la posición final del piloto en la carrera
-     * @return los puntos correspondientes a esa posición
-     */
+    @Override
     public int calcularPuntosPorPosicion(int posicion) {
-        // TODO: Implementar por el equipo
+        // TODO: Implementar por Javier
         return 0;
     }
 
-    /**
-     * TODO: Implementar por el equipo
-     * Este método debe retornar un String con el formato:
-     * "Nombre Apellido - Equipo - Puntos 2024: XX - Campeonatos: X"
-     * @return String con la información formateada del piloto
-     */
+    @Override
     public String obtenerInformacionCompleta() {
-        // TODO: Implementar por el equipo
+        // TODO: Implementar por Sebastian
         return "";
     }
 
-    /**
-     * TODO: Implementar por el equipo
-     * Este método debe retornar la posición promedio del piloto en la temporada actual
-     * @return double con la posición promedio
-     */
+    @Override
     public double obtenerPosicionPromedio() {
-        // TODO: Implementar por el equipo
+        // TODO: Implementar por Sebastian
         return 0.0;
     }
 
